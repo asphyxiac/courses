@@ -1,0 +1,78 @@
+Author: Ahsan, Prianna
+Date: July 11th, 2012
+Course: CS 31
+Section: Dis 1D
+TA: E. Kostem
+
+Source: insurance.cpp
+
+Obstacles encountered: I initially misunderstood the assignment, and was under
+the impression that mileage values were to be rounded up to the nearest 100 dollar
+value. Thus, I wrote a function that invoked the 'ceil' function that did just 
+that. The FAQ eventually explained that the mileage rate was a multiplier, and so 
+the rounding function I had written was not required. I commented it out and left it in the source code for posterity.
+
+The assignment was later changed to select for the lowest insurance rate, 
+which required additional modifications to my code. I switched from a nested 
+if-else statement to an else-if statement. I figured that drivers who fell into the discounted age group would always receive the lowest rate, and drivers who were neither students nor of the appropriate age nor 'good drivers' would always receive the highest rate. Students who were 'good students' and 'good drivers' could qualify for two types of rates, either of which could be lower depending on mileage. 
+
+Test input/output:
+
+The source code compiled under Visual Studio 2010 and g++ without errors. It was tested with various inputs, a sample of which can be found below. The code was also tested via the p2tester script on a SEAS Linux server (output below).
+
+Age of driver: 35
+Good student? (y/n): y
+Number of tickets: 0
+Miles per week driven: 500
+---
+The rate is $664.25
+
+Age of driver: 21
+Good student? (y/n): y
+Number of tickets: 0
+Miles per week driven: 5000
+---
+The rate is $1220.00
+
+Age of driver: 21
+Good student? (y/n): y
+Number of tickets: 0
+Miles per week driven: 2500
+---
+The rate is $911.25
+
+Age of driver: 45
+Good student? (y/n): n
+Number of tickets: 5
+Miles per week driven: 500
+---
+The rate is $678.50
+
+Age of driver: 45
+Good student? (y/n): n
+Number of tickets: 0
+Miles per week driven: 500
+---
+The rate is $400.00
+
+Results of p2tester script:
+
+========== TEST #1 input ==========
+21
+n
+3
+200
+========== TEST #1 PASSED ==========
+
+========== TEST #2 input ==========
+22
+y
+1
+98.7
+========== TEST #2 PASSED ==========
+
+=============== SUMMARY ============
+Although these tests are by no means complete, your passing them means you
+probably didn't make a systematic mistake that would cause you to lose most
+of the correctness points.
+

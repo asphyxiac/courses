@@ -1,0 +1,14 @@
+Author: Ahsan, Prianna
+Date: July 3rd, 2012
+Course: CS 31
+Section: Dis 1D
+TA: E. Kostem
+
+Source: helloworld.cpp
+Output: Hello, world!
+
+Bugs encountered at compilation: none.
+Bugs encountered at runtime: none.
+
+Comments: Did not experience any difficulty with this assignment. Compiled using g++ (OS X terminal) and Visual Studio 2010.
+

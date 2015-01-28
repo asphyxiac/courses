@@ -1,0 +1,12 @@
+Discussion Week 4:
+
+Constraints -> table schema
+		Values
+	- Key (set of attributes/tuple) uniquely identify
+	- Referential integrity/foreign key
+	- Check
+	
+	Triggers: Condition (pre-defined function/statements)
+		- Event
+		- Condition
+		- Action

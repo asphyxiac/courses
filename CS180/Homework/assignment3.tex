@@ -1,0 +1,257 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in 
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{Discussion enrolled: \hmwkClass\\Discussion Attended: \hmwkClass} % Top center header
+\rhead{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\cfoot{\hmwkTitle} % Bottom center footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+   
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment 3} % Assignment title
+\newcommand{\hmwkClass}{Section 1D} % Course/class
+\newcommand{\hmwkAuthorName}{Prianna \underline{Ahsan}} % Your name
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+Given a connected graph, G = (V, E) and a specific vertex u $\in$ V, suppose a DFS rooted at u returns a tree T that contains all vertices in G. Also, suppose that a BFS rooted at u returns the same tree, T.
+\begin{homeworkSection}{Claim}
+G = T (i.e., G does not contain any edges that are not also in T).
+\end{homeworkSection}
+\begin{homeworkSection}{Proof}
+\setlength\parindent{25pt}
+Assume, for contradiction, that G $\neq$ T. Then, by definition, there exist some vertices x, y in T such that (x, y) is an edge in G that is not in T. Since T is a DFS tree, by theorem 3.7, this implies that one of x or y is an ancestor of the other in T. However, T is also a BFS tree, which implies that x and y are at most one layer apart in T (by theorem 3.4). Since either x must precede y in T, or y must precede x, and they can be no more than a single layer apart, one of x or y must be the parent of the other. Since BFS always connects direct children with their parent node, the edge (x, y) must be in T. This contradicts our assumption that (x, y) $\not \in$ T and that G $\neq$ T.
+\end{homeworkSection}
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Custom section title
+The problem asks for an algorithm that either returns an 2n-tuple of temporally sorted birth and death events, or else reports that no such sequence of events exists. Based on the manner in which the problem was phrased, it's quite clear that the solution should return a topological ordering of the alleged events (structured as a digraph), if possible. If the digraph is acyclic, there will be at least one way to topologically sort the nodes (events). If the digraph contains a cycle, then no topological ordering exists, and it follows that the data are inconsistent. % Question
+
+%--------------------------------------------
+\begin{homeworkSection}{Solution}
+The set of 2n nodes (events), structured as a digraph G, can be partitioned into two sets, B and D, that contain nodes corresponding to births and deaths, respectively. Each individual $i \in P$ has corresponding nodes $i_{b} \in B$ and $i_{d} \in D$, plus a directed edge ($i_{b}, i_{d}$) in G to signify that \emph{i}'s birth preceded \emph{i}'s death. For each individual $i \in P$, we must examine the remaining n-1 individuals to determine the placement of edges. For some $j \neq i \in P$, if \emph{i} and \emph{j} were alive at the same time, add the edges ($i_{b}, j_{d}$) and ($j_{b}, i_{d}$) to signify that \emph{i} was born before \emph{j} died, and that \emph{j} was born before \emph{i} died. If \emph{i} died before \emph{j} was born, add the edge ($i_{d}, j_{b}$) to indicate the order of events. Once all individuals in P have been examined, we can attempt to topologically sort G by identify nodes that have $\delta_{in} = 0$.\\
+\problemAnswer{ % Answer
+// Assume that events are partitioned into sets B and D as described above.\\
+\setlength\parindent{25pt}
+\noindent For each i in P:\\
+\indent Add edge ($i_{b}, i_{d}$).\\
+\indent For each $j \neq i$ in P:\\
+\indent \indent If i and j were alive at the same time,\\
+\indent \indent \indent add edges ($i_{b}, j_{d}$) and ($j_{b}, i_{d}$).\\
+\indent \indent Else if i died before j was born,\\
+\indent \indent \indent add edge ($i_{d}, j_{b}$).\\
+\indent \indent Else j died before i was born,\\
+\indent \indent \indent add edge ($j_{d}, i_{b}$).\\
+
+\noindent // Now, we can attempt to topologically sort G.\\
+\noindent Declare a tuple T to hold topologically sorted nodes.\\
+\noindent Declare a set S to hold all nodes with $\delta_{in} = 0$.\\
+\noindent Declare a set W to hold $\delta_{in}(v)$ for all nodes in G.\\
+\noindent For each node v in G:\\
+\indent Add $\delta_{in}(v)$ to W.\\
+\indent If $\delta_{in}(v) = 0$, add v to S.\\
+\noindent For each node v in S:\\
+\indent For each edge (v, w):\\
+\indent \indent Remove edge (v, w), decrement $\delta_{in}(w)$.\\
+\indent \indent If $\delta_{in}(w) = 0$, add w to S.\\
+\indent Remove v from G and S, add v to T.\\
+
+\noindent // Check if G has been topologically sorted.\\
+\noindent If T has 2n elements, then G has been topologically sorted.\\
+\indent Output T.\\
+\noindent Else, G has a cycle.\\
+\indent Thus, the data are internally inconsistent.\\
+}
+\end{homeworkSection}
+\begin{homeworkSection}{Correctness}
+\noindent By theorems 3.20 and 3.18, G has a topological ordering if and only if G is a directed acyclic graph. Similarly, the order of events described to the ethnographers in exercise 12 are internally consistent if and only if they can be temporally sorted. Since the above algorithm structures G as a directed graph and then attempts to find a topological ordering of G, it essentially checks whether or not the provided data are internally consistent. 
+\end{homeworkSection}
+\begin{homeworkSection}{Time Complexity}
+\noindent Constructing the digraph takes $n(n-1) = \mathcal{O}(n^{2})$ time. Initially identifying all nodes with no incoming edges and filling W takes $\mathcal{O}(n)$ steps in the worst case. Then, deleting m edges from G takes an additional $\mathcal{O}(m)$ steps. Finally, outputting T takes $2n = \mathcal{O}(n)$ steps. Thus, the entire algorithm runs in $n^{2} + 2n + m = \mathcal{O}(n^{2})$ time.
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}% Roman numerals
+\begin{homeworkSection}{Claim}
+\noindent The greedy algorithm that packs boxes (in the order of arrival) until a truck is full before loading the next truck is the solution
+to the truck packing problem described in [KT], problem 4.3. Let n be the number of trucks used to ship k boxes. The greedy solution will always use the fewest trucks to ship k boxes.\\
+\end{homeworkSection}
+
+\begin{homeworkSection}{Proof}
+\noindent We can proof the optimality of the solution described in [KT], problem 4.3 by induction, showing that our greedy solution always 'stays ahead' of any proposed optimal solution.\\
+\\
+\textbf{Base case: n = 1}\\
+\\
+By definition the greedy solution will pack as many boxes as possible into the first truck, thus it's equal to the optimal solution for n = 1 trucks.\\
+\\
+\textbf{Inductive step:}\\
+\\
+Assume that the greedy solution is optimal for n = 1 to n-1 trucks. Then, in the $(n-1)^{th}$ case, if the greedy solution can fit j boxes into n-1 trucks, the proposed optimal solution is able to fit at most $i \leq j$ boxes into n-1 trucks.\\
+\\
+\textbf{$n^{th}$ case:} \\
+\\
+Now, for the $n^{th}$ truck, the greedy solution has $(k-j) \leq (k-i)$ boxes left to pack, while the proposed optimal solution has at least $(k-i) \geq (k-j)$ boxes left. Say that there are (k-i) boxes remaining: then, the greedy solution and optimal solution can both pack all of the boxes into the $n^{th}$ truck. If there are $j \geq i > (k-i)$ boxes remaining, the optimal solution can only fit i boxes, whereas the greedy solution can fit at least the first i boxes, and possibly the first j boxes, if j > i. Thus, the greedy solution is optimal for n = any number of trucks.
+\end{homeworkSection}% Question
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 4
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+The problem asks us to decide on a schedule that minimizes completion time of a triathlon (consisting of swimming, biking, and running in the order stated), for all competitors. Only one competitor at a time may use the pool, and each competitor \emph{i} has a projected swimming time, biking time, and running time, which are respectively denoted $i_{s}$, $i_{b}$, and $i_{r}$ in the solution below.
+
+\begin{homeworkSection}{Solution} % Section within problem
+An intuitive (naive) initial attempt at a solution might involve schedule competitors by swimming time, in ascending order (shortest $i_{s}$ to longest). However, if the last competitor (and slowest swimmer) is also the slowest biker and slowest runner, the completion time of the triathlon will be sub-optimal: everyone else will be waiting for the last competitor to finish. However, if we send the last competitor out first, we can make more efficient use of our time, as other people will have time to use the pool and begin biking/running while the slowest (first) competitor meanders their way to the finish line.  Ideally, we'd like the first competitor out to be the fastest swimmer, the slowest biker, and the slowest runner, but this is unlikely to be the case. Instead, we can use a similar sort of logic (and the fact that multiple people can bike and run simultaneously), to deduce that the first competitor should be the one who has the longest combined running and biking times, and that the remaining competitors should be sent out in descending order of $i_{b} + i_{r}$ time. This way, we can maximize the number of people biking and running simultaneously. The final competitor will have the fastest running and biking time, giving them an opportunity to "catch up" to the other slower runners and bikers.
+\end{homeworkSection}
+%--------------------------------------------
+
+\begin{homeworkSection}{Proof}
+Imagine that the solution above is not optimal. Then, there exists some other optimal solution in which the competitors are not sent out in descending order of biking and running times. Suppose that in the optimal solution, some competitor k is sent out before some other competitor k+1, with biking/running time $k_{b} + k_{r} < (k+1)_{b} + (k+1)_{r}$ and swimming time $k_{s} = (k+1)_{s}$.  Then, competitor k+1 would finish in $(k+1)_{b} + (k+1)_{r} + 2k_{s}$ minutes, while k would finish in $(k)_{b} + (k)_{r} + k_{s}$ minutes. In our solution, competitor k+1 goes first, taking $(k+1)_{b} + (k+1)_{r} + k_{s}$ minutes to complete the event, versus $(k)_{b} + (k)_{r} + 2k_{s}$ minutes for k. So competitor k takes $k_{s}$ more minutes and competitor k+1 takes $k_{s}$ fewer minutes in our solution versus an optimal solution, meaning that there is no difference between the two solutions.
+\end{homeworkSection}
+
+%--------------------------------------------
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Roman numerals
+
+\begin{homeworkSection}{Description} % Section within problem
+Describe an efficient algorithm for finding a Hamiltonian path in a DAG, and provide time complexity analysis.
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{Solution} % Section within problem	
+Assume that we're given a directed acyclic graph, G = (V, E), and that we're using the topological sort algorithm described in [KT] page 103, with running time $\mathcal{O}(m+n)$, where m is the number of edges and n is the number of vertices.\\
+\\
+\problemAnswer{ % Answer
+\setlength\parindent{25pt}
+\noindent Topologically sort G into a tuple T.\\
+\noindent For each node v in T:\\
+\indent If (v, v+1) $\in$ E, continue to the next node.\\
+\indent Else, no Hamiltonian path exists.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{Correctness and Time Complexity} % Section within problem
+The topological sorting takes $\mathcal{O}(m+n)$ steps and examining adjacent edges between nodes in T takes $\mathcal{O}(n)$ steps. Thus, the entire algorithm runs in $\mathcal{O}(m+n)$ time. The algorithm is correct because a topological ordering arranges vertices in ascending order with respect to degree. Since a Hamiltonian path includes each vertex in G exactly once, if $v_{1} -> v_{2} -> ... -> v_{n}$, $0 = \delta_{in}(v_{1}) < \delta_{in}(v_{2})$, so $v_{1}$ will precede $v_{2}$ in T. Then, according to the algorithm in [KT] page 103, we delete $v_{1}$ and all associated out-going edges, so that now $0 = \delta_{in}(v_{2}) < \delta_{in}(v_{3})$, and thus $v_{2}$ precedes $v_{3}$. Continuing in this manner, we find that T follows the exact same order as the Hamiltonian path in G.
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+\end{document}

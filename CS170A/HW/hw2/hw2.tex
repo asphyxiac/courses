@@ -1,0 +1,222 @@
+\documentclass[10pt]{article}
+\usepackage{enumerate}
+
+\usepackage{epsfig}
+\usepackage{url}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\addtolength{\textheight}{1.5in}
+\addtolength{\topmargin}{-1.1in}
+
+\newcommand{\norm}[1]{{\mid\!\mid #1 \mid\!\mid}}
+\newcommand{\vect}[1]{{\mbox{\boldmath{$\bf #1$}}}}
+\newcommand{\vectseq}[1]{{({#1})}}
+\newcommand{\adjoint}[1]{{{#1}'}}
+\newcommand{\transpose}[1]{{{#1}^{\top}}}
+\newcommand{\absval}[1]{{\left|{#1}\right|}}
+\newcommand{\innerprod}[2]{{\langle\,{#1},\,{#2}\,\rangle}}
+\newcommand{\scalarprod}[2]{{\left\langle\,{#1},\,{#2}\,\right\rangle}}
+
+\usepackage{times}
+
+\begin{document}
+
+
+\begin{center}
+{\bf
+\mbox{CS170A --- Mathematical Modeling \& Methods for Computer Science} \\
+HW\#2 {\it Eigenfaces} \\
+\mbox{Due: 3:59pm Monday February 24, 2014} \\ 
+\vspace*{2 mm}
+D. Stott Parker, Xingyu Ma, Costas Sideris
+}
+\end{center}
+
+{\bf
+Using CourseWeb, please turn in your Matlab code and resulting output
+(enough to show that the program is working) as a PDF document.
+}
+\medskip
+
+\noindent
+
+\begin{enumerate}
+
+\item {\bf Eigenfaces}
+Chapter 11 of the course notes is on Eigenfaces.
+For this assignment you can use the files in the directory \verb"old_faces",
+which includes some Matlab scripts and a database of 177 face images,
+each a grayscale \verb".bmp" bitmap file of size $64 \times 64$ pixels.
+The face images have been pre-processed so that the background
+and hair are removed and the faces have similar lighting conditions.
+
+The notes explain how to
+reshape each face image into a $1 \times 64^2 \, = \, 1 \times 4096$ row vector, and collect them into a matrix.
+The principal components of the matrix then define the main dimensions of variance in the faces.
+The program \verb"eigenfaces.m" shows how to do this.
+These principal components are called \emph{eigenfaces}.
+
+\bigskip
+
+The goal of this problem is to apply the same ideas to a new set of 200 faces in the directory \verb"new_faces".
+The subdirectory \verb"new_faces/faces" has 200 faces that have been normalized, cropped, and equalized.
+The subdirectory \verb"new_faces/smiling_faces" has 200 images of the same people, but they are smiling.
+Each of these images is a grayscale \verb".jpg" file with size $193 \times 162$.
+
+\begin{figure}[!htb]
+\centerline{
+\psfig{figure=face000.pdf,width=1.5in}
+\hspace{1in}
+\psfig{figure=new_face.pdf,width=1.25in}
+\hspace{0.5in}
+\psfig{figure=new_smiling_face.pdf,width=1.25in}}
+\caption{The $64 \times 64$ face bitmap image {\tt old\_faces/face000.bmp}, along with $193 \times 162$ jpeg images {\tt new\_faces/faces/23a.jpg}
+and {\tt new\_faces/smiling\_faces/23b.jpg}.  PLEASE USE THE MATLAB {\tt imread} FUNCTION TO READ IN IMAGES.}
+\end{figure}
+
+
+
+
+Using Matlab, perform the following steps:
+\begin{enumerate}
+
+\item
+Modify the program \verb"eigenfaces.m" (available in this directory)
+to use the \verb"new_faces" images instead of the \verb"old_faces" images.
+Also, modify it to use the Matlab function \verb"imresize" to downsample
+each of the new faces by a factor of 3, so it is $64 \times 54$ (instead of $193 \times 162$).
+
+\item
+Create a function that
+takes as input a string array of filenames of face images, an integer $k$,
+and an integer sample size $s$ ---
+and yields the average face and the first $k$ singular values and eigenfaces as output values
+for a sample of size $s$.
+
+Apply your function to
+both the \verb"new_faces/faces"
+and the \verb"new_faces/smiling_faces"
+directories,
+and plot the absolute value of the difference between your average face and (your downsampled version of)
+the average face provided in the directory.
+(You can use the \verb"imagesc" function to display images with automatic rescaling of numeric values.)
+
+\item
+If your mean normal face is $\overline{\vect{f}}_0$, and your mean smiling face is $\overline{\vect{f}}_1$,
+render (using \verb"imagesc")
+the difference $\overline{\vect{f}}_0-\overline{\vect{f}}_1$
+(the average difference between normal faces and smiling faces).
+
+\item
+Using your downsampled images,
+perform PCA on each set of faces (normal and smiling). 
+
+For each image (normal or smiling), construct its $64\cdot 54 \times 1$ vector $\vect{f}$.
+Then, subtract the average face
+($\overline{\vect{f}}_0$ or $\overline{\vect{f}}_1$)
+and project the remainder on the first $k = 30$ eigenfaces.
+For example, with a smiling face,
+the projection of $\vect{f}$ on the $j$-th smiling eigenface $\vect{e}_j$ is
+\[
+c_j ~=~ \innerprod{(\vect{f} \, - \, \vect{f}_1)}{\vect{e}_j}  ~~~~~~~~~~ (j = 1,\dots,k).
+\]
+
+For each set of faces (normal or smiling),
+make one large scree plot for the set, showing all sequences of the first $k$ coefficients
+for each image overplotted (e.g. with \verb"hold on").
+
+\item
+Let us say the \emph{unusualness} of a face is the $L_2$ norm of its eigen-coefficient vector.
+Determine, for each set, the most unusual face.
+
+\item
+Develop a normal/smiling face classifier using the eigenfaces you've computed:
+write a function that, when given as input the filename of a face image,
+yields the output value 0 if a face is normal and 1 if the face is smiling.
+
+Design a function that uses average faces and principal components for each set (normal and smiling) to do this.
+To do this for a given input image, first determine its unusualness as a normal face,
+and also its unusualness as a smiling face,
+and use the two unusualness values to determine its classification.
+
+To test your function, for each set (normal and smiling),
+use the first 100 normal and smiling images as a \emph{training set}
+and the last 100 normal and smiling images as a \emph{testing set}.
+
+First, compute the eigenfaces with the training set.
+Then, use the testing set to determine how often your classifier is accurate.
+Print the \emph{error rate} of your classifier --- the percentage of tests that give a classification error.
+
+
+\item
+There are better ways to develop a smiling classifier.
+For example, since \verb"23a.jpg" and \verb"23b.jpg" give normal and smiling images for one person,
+the difference between these images is informative.
+If you do PCA on \emph{difference images} like this,
+you can produce a better classifier.
+There are other ways to improve the classifier also.
+
+Develop the best classifier you can using PCA of some kind,
+and give its error rate for the training set and testing set above.
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+\item {\bf Face Compression} \\
+In the previous problem you produced a scree plot showing the first 30 eigenface coefficients for each face,
+and determined the most unusual face.
+
+For each image matrix $X$ from your (downsampled) smiling faces, compute the following sorted sequences:
+\begin{enumerate}
+ \item  sorted absolute values of eigenface coefficients for $X$
+ \item  sorted absolute values of coefficient values in the two-sided FFT of $X$  (in Matlab: \verb"fft2(X)")
+ \item  sorted absolute values of coefficient values in the two-sided DCT of $X$  (in Matlab: \verb"dct2(X)")
+ \item  sorted singular values from the SVD of $X$.
+\end{enumerate}
+We get an \emph{image compression} scheme if we keep only the first $k$ coefficients, and discard the rest.
+
+Suppose we keep only the first 30 coefficients.
+If we compute \emph{compression error}
+as (the $L_2$ norm of absolute values of coefficients after the first 30) divided by
+(the $L_2$ norm of absolute values of all coefficients),
+we can compare compression with each of the 4 transforms above.
+
+For the smiling test set (the last 100 smiling images),
+compute the average compression error for the 4 transforms.
+Rank the 4 transforms above by their compression error.
+
+\item {\bf Floating Point Horror} \\
+Using the Matlab command \verb"format long" to make the following floating point results visible.
+
+For each of the following matrices \verb"X":
+\begin{itemize}
+\item
+print the results of \verb"svd(X)", \verb"log10(svd(X))", and \verb"range(log10(svd(X)))", \verb"cond(X)". 
+\item
+print the Frobenius norm of the difference between the product \verb"X * inv(X)" and the identity matrix.
+\item
+Write a program that computes the \emph{exact} inverse \verb"X"${}^{-1}$ of \verb"X".
+(With the \verb"hilb(n)" matrix, this is computed by \verb"invhilb(n)" for example,
+but you may need to do a little research on the internet to get the form of the exact inverse.)
+Then print the Frobenius norm of the difference between the product \verb"X * X"${}^{-1}$ and the identity matrix.
+\end{itemize}
+\begin{enumerate}
+\item The Hilbert matrix \verb"hilb(12)".
+\item The Pascal matrix \verb"pascal(12)".
+\item The Fourier matrix \verb"fft(eye(12))".
+\item The Vandermonde matrix \verb"vander(1:12)".
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
+

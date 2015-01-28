@@ -1,0 +1,64 @@
+B+ TREE STRUCTURE:
+
+	ORDER (or BRANCHING FACTOR), N, determines capacity of nodes.
+	
+	ROOT NODE: Can have as few as TWO children (for N >= 2).
+	NONLEAF NODE: Can have from N/2 to N children.
+	LEAF NODE: Can have from (N/2-1) to N-1 KEYS.
+			   N/2 to N pointers.
+
+
+SPECIFIC TO PROJECT 2:
+	Each index is stored as its own PageFile instance.
+		- As a member of BTreeIndex class.
+		- One page in a PageFile is equivalent to one block.
+
+	Each node (both leaf, nonleaf, root) corresponds to a page in PageFile.
+		- Internal pointers (nonleaf to leaf, leaf to leaf) are pageIDs 
+		that link to pages in the BTreeIndex PageFile member.
+	Tables are stored in the PageFile member of RecordFile.
+		- External pointers (leaf to tuple) are recordIDs that point to 
+		pages in the PageFile member of RecordFile.
+		- RecordIDs consist of pid (page ID) and sid (slot ID).
+	When SqlEngine queries the index, appropriate leaf node pointer is
+	returned.
+	
+B+ TREE IMPLEMENTATION:
+
+	MEMORY MANAGEMENT:
+	Index file has to be read in from disk via PageFile.
+	1KB memory per page, can have many pages in PageFile.
+		- 1024 bytes per page/block.
+	Each key requires 4 bytes to be stored.
+	Each pointer requires 4 bytes to be stored.
+	Each node should hold AT MOST 255 4-byte values.
+		- N = 255 is the ORDER of the B+tree.
+	Can use buffer member to hold page content in memory.
+	Can also use different approaches (hash index).
+
+	CLASS HIERARCHY:
+	BTNode (parent)
+	BTLeafNode (inherits from BTNode)
+	BTNonLeafNode (inherits from BTNode)
+	BTRoot (may not be necessary)
+	
+
+	DATA STRUCTURES:
+	We are STRONGLY encouraged to use recursive algorithms to implement the
+	B+tree index. This tells us a lot about the kind of data structures
+	that should be used.
+	
+		BTLeafNode: 
+			Leaf node external structure: linked list
+				- Chain leaf nodes sequentially as a list.
+				- Using an array would increase maintenance cost 
+				(deletion/insertion) of nodes.
+			Keys within a leaf node organized as B+tree.
+				- Recursive substructure!!!
+				- Other data structures have higher maintenance cost.
+						
+	
+	
+	Bulk load: bottom up build - sort and insert.
+	Insertion (in general)
+	

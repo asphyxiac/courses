@@ -1,0 +1,64 @@
+Author: Ahsan, Prianna
+Date: Aug 8th, 2012
+Course: CS 31
+Section: Dis 1D
+TA: E. Kostem
+
+sourcefile: translator.cpp
+
+Obstacles:
+
+	This program was pretty difficult to write, mostly due to my lack of familiarity with the iostream and string libraries. I had trouble deciding how to implement my pseudocode - I first considered using the find() function in the string class to find all of the whitespaces in the text, but that turned out to be more tedious than I had anticipated and I had difficulty with many test cases. I eventually decided to use stringstream to buffer the entire file (I also had trouble using getline with stringstream) rather than reading a single line at a time.
+Finally, I had issues getting the punctuation to work properly. I eventually figured it out (it was a simple solution - I just concatenated the string in reverse order).
+
+Sample testcase:
+
+No!, !they will not appear in the input. Punctuation will only appear at the begining and end of a word. ""!For example," She said, "Hello!  Wow!" must translate to Hesay aidsay, "Ellohay!  Owway!"
+
+You do not to recreate the exact whitespace that existed in the original file in your output file. You just need to seperate all the tokens with some whitespace. (I think this should make your work a lot easier).
+
+Sample output from testcase:
+
+Onay!, !heytay illway otnay appearway inway hetay inputway. Unctuationpay illway onlyway appearway atway hetay eginingbay andway endway ofway away ordway. ""!Orfay exampleway," Hesay aidsay, "Ellohay! Owway!" ustmay ranslatetay otay Esayhay aidsayway, "Ellohayway! Owwayway!" Ouyay oday otnay otay ecreateray hetay exactway hitespaceway hattay existedway inway hetay originalway ilefay inway ouryay outputway ilefay. Ouyay ustjay eednay otay eperatesay allway hetay okenstay ithway omesay hitespaceway. (Iway hinktay histay houldsay akemay ouryay orkway away otlay easierway). 
+
+Pseudocode:
+
+input filename,
+while input filename is invalid:
+	prompt for new input filename
+output filename,
+while output filename is invalid:
+	prompt for new output filename
+
+buffer file
+while( buffer exists ):
+	read a word
+	analyze the word ...
+	output the word to file
+	
+
+analyze the word...
+	check the word for punctuation,
+		check for leading punctuation,
+			store leading punctuation
+		check for lagging punctuation,
+			store lagging punctuation
+			
+	check the word for capitalization
+	
+	if no punctuation:
+		check the first letter of the word,
+			if vowel,
+				translate using vowel rules
+			else,
+				translate normally
+				
+	if punctuated:
+		check the first letter of the word,
+			if vowel,
+				translate using vowel rules
+				add punctuation
+			else,
+				translate normally
+				add punctuation
+				

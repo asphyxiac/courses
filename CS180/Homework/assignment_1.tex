@@ -1,0 +1,248 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{mathtools}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in 
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{Discussion enrolled: \hmwkClass\\Discussion Attended: \hmwkClass} % Top center header
+\rhead{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\cfoot{\hmwkTitle} % Bottom center footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+   
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment 1} % Assignment title
+\newcommand{\hmwkClass}{Section 1D} % Course/class
+\newcommand{\hmwkAuthorName}{Prianna \underline{Ahsan}} % Your name
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+True or false? In every instance of the Stable Matching Problem, there is a stable matching containing a pair (m,w) s.t. m is ranked first on w's preference list and w is ranked first on m's preference list.
+\vspace{10pt} % Question
+
+
+This is clearly false, as evidenced on page 5 of [KT]. In this example, we have the following preference lists:\\
+\setlength\parindent{25pt}
+\indent m: (w, w')\\
+\indent m': (w', w)\\
+\indent w: (m', m)\\
+\indent w': (m, m')\\
+There are two sets of stable matchings, $S_{1}$ = {(m, w), (m', w')} and $S_{2}$ = {(m', w), (m, w')}. Neither of them contain a pair s.t. both m and w are first on each other's preference lists.
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Custom section title
+True or false? Consider an instance of the Stable Matching Problem in which there exists a man, m, and a woman, w, s.t. m is ranked first on w's preference list and w is ranked first on m's preference list. Then in every stable matching S for this instance, the pair belongs to S.% Question
+\vspace{10pt}
+%--------------------------------------------
+
+Yes, by definition of "stable matching", this must be true. A situation in which this is not true creates an instability.
+
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}% Roman numerals
+Such an algorithm doesn't exist. This can be proved by a counter example in which the two networks have the following ratings for shows (1 is the best, 6 is the worst):\\
+\setlength\parindent{25pt}
+\indent A: (1, 3, 5)\\
+\indent B: (2, 4, 6)\\
+Say A releases a schedule S = ( 1, 3, 5 ) and B releases a schedule T = ( 2, 6, 4 ). Then network A wins 2 slots and network B wins 1 slot. This pair of schedules is not stable, because B will want to rearrange T to T' = ( 6, 2, 4) so that they can win two slots. Similarly, if T = ( 6, 2, 4 ), network A will want to rearrange S to S' = ( 5, 1, 3 ) so that they can win all of the slots.
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 4
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+\begin{homeworkSection}{Description} % Section within problem
+Since each ship visits ports in some order, and each port is visited by each ship in some order, we can set up sets P and S of n ports and n ships, respectively, where each $s_{i} \in S$ has an n-tuple of ports in ascending chronological order, and each $p_{i} \in P$ has an n-tuple of ships in descending chronological order (i.e., the first port in $s_{i}'s$ list is the first port visited by $s_{i}$ but the first ship in $p_{i}'s$ list is the last/most recent ship to visit $p_{i}$). Now, we can use the algorithm described in figure 1.2 on page 6 of [KT] to determine which ship stops at which port for maintenance.
+
+
+\end{homeworkSection}
+%--------------------------------------------
+
+\begin{homeworkSection}{Solution} 
+\problemAnswer{ % Answer
+While there is a ship s which is not assigned to remain at a port,\\
+\setlength\parindent{25pt}
+\indent Choose such a ship s.\\
+\indent Let p be the highest ranked port in s's preference list that has not yet\\
+\indent been assigned a ship.\\
+\indent If p is free,\\
+\indent \indent assign s to p.\\
+\indent Else, p is currently assigned to s'.\\
+\indent \indent If p prefers s' to s then,\\
+\indent \indent \indent s remains unassigned.\\
+\indent \indent Else,\\
+\indent \indent \indent assign s to p,\\
+\indent \indent \indent s' becomes unassigned.\\
+Return M, the set of matched ships and ports.
+}
+\end{homeworkSection}
+
+%--------------------------------------------
+
+\begin{homeworkSection}{Analysis}
+Since this solution is simply Gale-Shapely's stable matching algorithm (figure 1.2, page 6 in [KT]), and we know that no two ships can stop at the same port at the same day (i.e., each ship and port's preference list is unique), the set M consists of n unique order pairs (s, p) for  all $s \in S$ and $p \in P$. Like the Gale-Shapely algorithm, the main while-loop in the above solution takes $n^{2}$ steps to terminate.
+\end{homeworkSection}
+
+%--------------------------------------------
+
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Roman numerals
+
+\begin{homeworkSection}{Description} % Section within problem
+The problem asks us to maximize calories, subject to some weight constraint. Essentially, our function maximizes a sub-function that returns a linear combination of number of fluid packs and calories per pack, subject to the constraint that the total weight of the packs does not exceed some weight value, $w_{max}$. Let $\vec{c} := <c_{1},c_{2},\cdots, c_{n}>$ represent the vector of calories per pack, and $\vec{w} := <w_{1},w_{2},\cdots, w_{n}>$ represent the vector of weights per pack. Then, each sub-solution $S_{i}$ is assigned some vector $\vec{q} := <q_{1},q_{2},\cdots, q_{n}>$ representing the quantities of each pack used in that sub-solution. Since there are $ w_{max}+n \choose n$ possible solutions to the equation $w_{1}q_{1}+ \cdots +w_{n}q_{n} \leq w_{max}$, it makes sense to recursively break our problem down into sub-problems that each return optimal sub-solutions. Then, our maximization function can examine each sub-solution to find the maximal possible caloric value obtained.
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{Solution} % Section within problem	
+\problemAnswer{ % Answer
+// The solution takes a vector of quantities, $\vec{q}$, and an integer\\
+// weight, as input. It returns a vector of integer quantities, $\vec{q}$. The\\
+// vectors of calories and weights are assumed to be defined globally.\\
+// Initially, the solution is called with weight set to $w_{max}$ and $q_{i} = 0\ \forall\ q \in \vec{q}$.\\
+// This solution is provided without proof.\\
+\setlength\parindent{25pt}
+If weight is 0,\\
+	\indent return $\vec{q}$;\\
+For i = 0 to n:\\
+	\indent If $w_{i} \leq weight$,\\
+	\indent \indent	$q_{i} = q_{i}+1$,\\
+	\indent \indent	$\vec{S}_{i}$ = Solution($\vec{q}$, weight-$w_{i}$).\\
+	\indent Else,\\
+		\indent \indent $S_{i} = \vec{q} $.\\
+Let $\vec{S}_{max} = \vec{q}$, let $cal_{max} = 0$.\\
+For each $\vec{S}_{i} \in \vec{S}$:\\
+	\indent If the first element in $\vec{S}_{i}$ is 0,\\
+	\indent \indent Leave $\vec{S}_{max}$ unchanged.\\
+	\indent Else,\\
+	\indent \indent $cal_{i}$ = sum of $\vec{S}_{i} \times \vec{c}$.\\
+	\indent \indent If $cal_{i} > cal_{max}$,\\
+	\indent \indent \indent $cal_{max} = cal_{i}$,\\
+	\indent \indent \indent $\vec{S}_{max} = \vec{S}_{i}$.\\
+return $\vec{S_{max}}$.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{Analysis} % Section within problem
+The first for-loop creates a sub-problem thread consisting of solutions beginning with the $i^{th}$ fluid pack. If the $i^{th}$ fluid pack exceeds $w_{max}$, the loop moves on to the next pack. If any of the individual fluid pack weights exceed $w_{max}$, no solution sequence will exist that begins with that fluid pack (i.e., no good solution sequences exist that begin with 0). In the worst case, n solution sequences are generated by this loop. The second for-loop ignores all solutions that begin with 0 (empty solutions) and compares the maximum calories attained in the $i^{th}$ solution with the current maximum calorie value. This comparison operation takes n steps per step of the second loop, so this for-loop takes $n^{2}$ steps in the worst case. Thus, each call of the solution takes $n^{2}+n$ steps in the worst case.
+\end{homeworkSection}
+
+\begin{homeworkSection}{Proof of Correctness} % Section within problem
+At present, I'm not positive that this solution is correct, thus I certainly cannot prove its correctness. Given more time, I could probably come up with something resembling an inductive proof, but as of this moment, no proof exists.
+\end{homeworkSection}
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

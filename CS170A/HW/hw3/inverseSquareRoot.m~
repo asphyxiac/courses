@@ -1,0 +1,15 @@
+function invSqRt = inverseSquareRoot(in, g)
+x = repmat(in, k, 1);
+errormarg = 10^(-15);
+x_old = 1.0;
+
+i = 0;
+
+error = ;
+
+while ( error > errormarg )
+    x(i+1) = g(x(i));
+    
+
+invSqRt = x;
+end

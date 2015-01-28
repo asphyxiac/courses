@@ -1,0 +1,67 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww11480\viewh15840\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qr
+
+\f0\fs24 \cf0 Ahsan, Prianna\
+UID: 704-068-040\
+CS 143, SEC 1A\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc
+\cf0 \
+Homework 3\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+1.\
+  a. CHECK (weight <= 5)\
+  b. CREATE TRIGGER T\
+    	AFTER INSERT ON Laptop\
+    	REFERENCING NEW ROW AS row\
+    	FOR EACH ROW\
+		WHEN nrow.weight > 5\
+		BEGIN\
+	  	UPDATE Laptop SET\
+	  	weight = NULL WHERE\
+	  	model = nrow.model\
+		END\
+\
+2. CREATE ASSERTION Foreign_Key\
+   CHECK ( S.a IN (\
+   		   SELECT R.a\
+		   FROM R ) );\
+\
+3. A		|	B\
+   1		| 	8\
+   100	|	0\
+   100	|	0	\
+   \
+4.\
+  a. CREATE VIEW EmployeeNames AS\
+	SELECT ename\
+	FROM Employees;\
+	   \
+	CREATE VIEW DeptInfo AS\
+	SELECT dept, AVG(salary) AS avgsalary\
+	FROM Employees\
+	GROUP BY dept;\
+	 \
+  b. GRANT SELECT, DELETE ON Employees(ename) TO MIKE;\
+	GRANT SELECT ON DeptInfo(avgsalary) TO MIKE;\
+		\
+  c. The secretary cannot find out salaries of individuals \
+	because he only has select and delete access to the ename \
+	attribute, not the salary attribute of the Employee table.\
+		\
+  d. UPDATE DeptInfo\
+	SET avgsalary = 90000\
+	WHERE dept = 'CS';\
+		\
+  e. GRANT ALL PRIVILEGES ON Employees TO JOE WITH GRANT OPTION;\
+	Yes, Joe can read the DeptInfo view because the database \
+	performs queries on DeptInfo by referencing Employees.\
+		\
+  f. REVOKE GRANT OPTION FOR ALL PRIVILEGES ON Employees \
+	FROM JOE CASCADE;\
+	All views would remain, but any privileges that Joe had \
+	granted to others would be revoked.\
+}

@@ -1,0 +1,30 @@
+SEARCH PROBLEMS
+
+	- Initial state
+	- Final state
+	- Successor fn
+		- Transitions
+	- Cost function
+	- Goal test
+
+	- Optimal solution reaches the goal at the lowest possible cost (complexity).
+
+	example: "Three color problem"
+	3 colors, n-by-n grid, no two adj cells have the same color. 4^(n^2) possible colorings,
+	but not all of them are acceptable/legal.
+	IS: No cells are colored.
+	FS: All cells are colored.
+	Actions: Coloring cells, e.g., color(i, j, c) where (i, j) are the coordinates
+			 of a cell and c is one of three colors.
+
+SEARCH STRATEGIES
+
+	Differ wrt expansion of nodes from the fringe.
+	Judged based on four characteristics:
+		Time-complexity: # of steps necessary before goal is reached. 
+						 # of nodes expanded before goal is reached.
+		Search-complexity
+		Optimality
+		Completeness
+
+		

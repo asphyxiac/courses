@@ -1,0 +1,313 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{mathtools}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in 
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{Discussion enrolled: \hmwkClass\\Discussion Attended: \hmwkClass} % Top center header
+\rhead{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\cfoot{\hmwkTitle} % Bottom center footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+   
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment 2} % Assignment title
+\newcommand{\hmwkClass}{Section 1D} % Course/class
+\newcommand{\hmwkAuthorName}{Prianna \underline{Ahsan}} % Your name
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+How much slower does each algorithm get when you (i) double the input size or (ii) increase the input size by 1?
+\vspace{10pt} % Question
+
+\setlength\parindent{25pt}
+\indent a. $n^{2}$: \\
+\indent \indent (i) runs $2^{2}$ times slower. \\
+\indent \indent (ii) takes 2n+1 more steps. \\
+\indent b. $n^{3}$\\
+\indent \indent (i) runs $2^{3}$ times slower. \\
+\indent \indent (ii) takes $3n^{2}+3n+1$ more steps. \\
+\indent c. $100n^{2}$: \\
+\indent \indent (i) runs $2^{2}$ times slower. \\
+\indent \indent (ii) takes 200n+100 more steps. \\
+\indent d. $n\log{n}$\\
+\indent \indent (i) runs in $2n+2n \log{n}$ time, which is twice the original runtime, plus a factor of 2n. \\
+\indent \indent (ii) slows by $n \log(\frac{n+1}{n}) + \log(n+1)$. \\
+\indent e. $2^{n}$\\
+\indent \indent (i) runs in $2^{n^{2}} = 2^{n} \times 2^{n}$ time. \\
+\indent \indent (ii) takes twice as long to run. \
+
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Custom section title
+For each of the algorithms, what is the largest input size n that the algorithm could process in an hour, using a computer than can
+perform $10^{10}$ operations per second?% Question
+\vspace{10pt}
+%--------------------------------------------
+
+There are 3600 seconds per hour, so the computer can perform at most $3600 \times 10^{10} = 3.6 \times 10^{13}$ operations: 
+
+\setlength\parindent{25pt}
+\indent a. $n^{2}: \sqrt{3.6e13} = 6 \times 10^{6}$.\\
+\indent b. $n^{3}: \sqrt[3]{3.6e13} \approx 33019$.\\
+\indent c. $100n^{2}: 6 \times 10^{6}$. \\
+\indent d. $n\log{n}: n \approx 2.85 \times 10^{12}$.\\
+\indent e. $2^{n}: \log_{2}(3.6\times 10^{13}) \approx 45$.\\
+\indent f. $2^{2^{n}}: \log_{2}(45) \approx 5$.\\
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}% Roman numerals
+...Suppose that each line has a length that is bounded by a constant \emph{c}, and suppose that the song runs for n words total. Show how to encode such a song using a script that has length f(n), for a function f(n) that grows as slowly as possible:% Question
+\vspace{10pt}
+
+\noindent 1. Give an algorithm for transcribing such a song onto a sheet of paper. The
+output of A is a document with O(f(N)) words.\\
+
+\setlength\parindent{25pt}
+\indent Write each unique line down in the order it is to be sung, for example:\\
+\indent 0) On the [M]th day of Christmas, my true love gave to me:\\
+\indent 1) A partridge in a pair tree.\\
+\indent 2) Two turtle doves, and \\
+\indent 3) Three French hens,\\
+\indent ...\\
+\indent M) [Last line here].\\
+
+\noindent 2. Give an algorithm for singing the song from such a document so that the song
+is sung as above, running for a total of N words. \\
+
+
+\noindent Singing the song will require nested for loops, with the outer loop counting the line number the song is currently on and the inner loop controlling which line of the song is being sung:\\
+\problemAnswer{ % Answer
+\setlength\parindent{25pt}
+\noindent For i from 1 to M:\\
+\indent Sing line 0.\\
+\indent For j from i to 1:\\
+\indent \indent Sing line j.
+}\\\\
+
+\noindent 3. Explain what your f(N) is. f(N) is defined as the largest document size (in
+words) for all songs with at most N words. You want f(N) to grow with N as
+slowly as possible.\\
+
+There are M lines total, and the length of each line is limited to c words, and we assume that each line has at least one word. Thus the size of the document in terms of M is at least $\sum_{i=0}^{M} i = \frac{M^{2}+M}{2}$ and at most $c\sum_{i=0}^{M} i = c\ \frac{M^{2}+M}{2}$. The upper bound on size must be less than N, $c\ \frac{M^{2}+M}{2} \leq N$, thus $(M^{2}+M) \leq \frac{2N}{c}$. We can disregard the second M term in the LHS of the inequality to find that $M^{2} \leq \frac{2N}{c} \to M \leq \sqrt{\frac{2N}{c}}$, which can be simplified to $M \leq \sqrt{N}$ in asymptotic analysis. Thus, f(N) = O($\sqrt{N}$).
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 4
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+	
+\begin{homeworkSection}{Claim} % Section within problem
+Let G be a graph on n nodes, where n is an even number. If every node of G has degree at least $\frac{n}{2}$, then G is connected.
+
+
+\end{homeworkSection}
+%--------------------------------------------
+
+\begin{homeworkSection}{Proof}
+Let G be a graph on n nodes, where n is an even number, such that every node of G has degree at least $\frac{n}{2}$.\\
+Assume, for contradiction, that G is not connected. Then, we can partition nodes in G into at least two subsets, $G_{1}$ and $G_{2}$, such that no node in $G_{1}$ has an edge incident on a node in $G_{2}$ (and vice versa). Let $G_{1}$ be a connected subset of minimal size, so that each node in $G_{1}$ has degree at least $\frac{n}{2}$. $G_{1}$ must have at least $\frac{n}{2} + 1$ nodes, implying that $G_{2}$ has at most $\frac{n}{2} - 1$ nodes. But then any node in $G_{2}$ can have degree of at most $\frac{n}{2} - 2$, contradicting our initial definition of G. Thus, by way of contradiction, G is connected.
+\end{homeworkSection}
+
+%--------------------------------------------
+
+\end{homeworkProblem}
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Roman numerals
+
+\begin{homeworkSection}{Description} % Section within problem
+The problem describes a set of data, sorted temporally in ascending order, consisting of ordered triples ($C_{i}, C_{j}, t_{k}$) where the first two elements represent computers that have communicated with one another and the third element represents the time at which the contact occurred. Each pair of computers appears in the set at most once. The problem asks for an algorithm that processes the data to determine whether or not computer $C_{a}$ was communicating with computer $C_{b}$ at time t.
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{Solution} % Section within problem	
+\problemAnswer{ % Answer
+// The solution assumes an array of N computers, $C_{1} to C_{N}$. Each element $C_{i}$\\
+// has an vector of times at which contact was made, and each time, $t_{i}$ contains a list\\
+// with the indices of computers that were communicating with $C_{i}$ at $t_{i}$.\\
+// Assume that there are M triples.\\
+// Input: Infected computer $C_{a}$, infected time x, suspected infected computer $C_{b}$, time y.\\
+// Assume the array of N computers is declared but not populated.\\
+\setlength\parindent{25pt}
+For each triple ($C_{i}, C_{j}, t_{k}$),\\
+\indent If no data exists at the indices corresponding to $C_{i}, C_{j}$,\\
+\indent \indent Go to the corresponding elements in the array of computers,\\
+\indent \indent \indent add a vector containing $t_{k}$, then\\
+\indent \indent \indent \indent add list beginning with appropriate index of communicating computer.\\
+\indent Else, \\
+\indent \indent Go to appropriate element in the array of computers.\\
+\indent \indent If $t_{k}$ exists,\\
+\indent \indent \indent add index of communicating computer.\\
+\indent \indent Else,\\
+\indent \indent \indent add vector containing $t_{k}$, then\\
+\indent \indent \indent \indent add list beginning with appropriate index of communicating computer.\\
+
+
+
+\noindent Go to $C_{a}$, time x.\\
+For $t_{i}$ from x to y,\\
+\indent For each computer $C_{i}$: \\
+\indent \indent Search list of $C_{i}$ for $C_{b}$ between $t_{x}$ and $t_{y}$.\\
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{Correctness and Time Complexity} % Section within problem
+Since the algorithm begins at $C_{a}$ at time of infectivity $t_{x}$, every computer that communicated with $C_{a}$ after that time became infected and then passed on the virus to any other computers it subsequently communicated with. Since time only moves forward in our data set, the algorithm follows a path from the first infected computer to every other computer infected between $t_{x} and t_{y}$ by systematically searching the lists of every computer that came into contact with $C_{a}$ in the given interval.
+
+Constructing the arrays takes the following number of steps: M+k steps for the first loop and at most N(x-y) steps for the second loop, thus M+N steps in the worst case, for large M, N.
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Roman numerals
+
+\begin{homeworkSection}{Description} % Section within problem
+	Suppose that you are given an algorithm as a black box, that is, you cannot see how it is
+	designed. It has the following properties: if you input any sequence of real numbers
+	and an integer k, the algorithm will answer YES or NO indicating whether there is a
+	subset of numbers whose sum is exactly k. Show how to use this black box to find the
+	subset of a given sequence $x_{1},...,x_{n}$ whose sum is k.
+	You can use the black box O(n) times.
+\end{homeworkSection}
+
+
+\begin{homeworkSection}{Solution} % Section within problem	
+\problemAnswer{ % Answer
+// Input: A sequence S of real numbers, of length n.\\
+// Output: A subset X of real numbers whose sum is exactly k, or the empty set.\\
+// Let blackbox( input ) denote input of a sequence to the black box.\\
+\setlength\parindent{25pt}
+X = $\emptyset$. \\
+If blackbox( S ) returns YES:\\
+	\indent For i from 0 to n:\\
+	\indent \indent If blackbox( $ S\setminus\left\{{s_{i}}\right\}$ ) returns YES,\\
+	\indent \indent	\indent S' = $ S\setminus\left\{{s_{i}}\right\}$.\\
+
+\noindent Return X.
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{Analysis} % Section within problem
+The algorithm begins by asking the black box whether or not a subset that sums to k exists within the given sequence S. If such a subset exists, the algorithm sequentially removes elements that are not in the desired subset. If no such subset exists, the algorithm returns the empty set. Clearly, this algorithm runs in 0(n) time in the worst case.
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+\end{document}

@@ -1,0 +1,21 @@
+2/14/14 Implemented load in SqlEngine.cc, I used goto statements for 
+	convenience since they were used in their code but that's
+	sloppy programming, so I'll clean that up. 
+2/15/14 Ditched the gotos in favor of breaks; not a whole lot better 
+	but less spaghetti.
+	----------------------------------------------
+	Started part B of the assignmen:
+	-implemented read(), write(), getKeyCount(), getNextNodePtr(), setNextNodePtr()
+	
+2/21/14 I don’t think that memcpy(&count, &buffer, sizeof(int)) returns the number of keys. It simply returns the size of integers that are in the buffer. But not all integers are keys.
+
+2/22/14 Began implementing node structures. Using a vector of type Entry (template struct).
+
+2/24/14 Cleaned up LeafNode functions, added helper functions for char* pointer access.
+
+2/25/14 Cleaned up NonLeafNode functions, added buffInsert/LeafNode private helper functionality to NonLeafNodes. Added comments and adjusted implementation to reflect information posted by instructors on Piazza.
+
+Ross, do we have to use new to instantiate new nodes? 
+- Hey P, definitely not. Shitty code is shitty code. You can kill me and eat my fingers as punishment.
+I couldn't get their image to run on the virtual machine in Ubuntu, I get a bunch of errors, so I can't 
+properly test anything, which is so frustrating!!! 

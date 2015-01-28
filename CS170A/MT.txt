@@ -1,0 +1,31 @@
+1.
+	e. A = 1/sqrt(n-1)(X-X*); X* = mean
+	A'A = cov(X)
+
+2.
+	a. tr(Cov(A)) = sum of variances
+	b. tr(A'A) = Sum of a(ij) squared
+	c. tr(A-A*)'(A-A*) = sum of variances
+	d. tr(S'S) = sum of a(ij) squared
+	e. F_norm(A) squared = sum of a(ij) squared
+	f. (1/n-1)*trace(Z'Z) = p
+	g. (1/n-1)*squared F_norm(A-A*) = sum of variances
+	h. square of F_norm(U'A) = sum of a(ij) squared
+	
+3. 
+	a. R^2 is closer to 1.
+	b. 0
+	c. If Y is X with rows reversed, then Y- is X- with columns reversed.
+	d. Y- = 1/2(X-)
+			   (X-)
+	e. No change.
+	f. Reverses the values of alpha, beta.
+	g. (X')- = (X-)' = U(S`)'V'
+	
+4. 
+	a. No change.
+	b. No change.
+	c. 3x2+1, x2 = 3*cov(x2+1, x2) = 3*cov(x2, x2) + 3*cov(1, x2)
+	d. The first PC becomes the second PC and vice versa
+	e. Cov(X) = [var(X) var(X)] E(X^2)
+				[var(X) var(X)]

@@ -1,0 +1,98 @@
+TREE-CONTAINS (N TREE):
+	CASE 1:
+	0[3] (TREE-CONTAINS 3 '((1 2 3) 7 8))
+	T
+
+	CASE 2:
+	0[3] (TREE-CONTAINS 4 '((1 2 3) 7 8))
+	NIL
+
+TREE-MAX (TREE)
+	CASE 1:
+	0[3] (TREE-MAX '((1 2 3) 7 8)) 
+	8
+
+TREE-ORDER (TREE)
+	CASE 1:
+	0[3] (TREE-ORDER 3) 
+	(3)
+	
+	CASE 2:
+	0[3] (TREE-ORDER '((1 2 3) 7 8))
+	(1 2 3 7 8)
+
+SUB-LIST (L START LEN)
+	CASE 1:
+	0[3] (SUB-LIST '(a b c d) 0 3)
+	(A B C)
+
+	CASE 2:
+	0[3] (SUB-LIST '(a b c d) 3 1)
+	(D)
+
+	CASE 3:
+	0[3] (SUB-LIST '(a b c d) 2 0)
+	NIL
+
+SPLIT-LIST (L)
+	CASE 1:
+	0[4] (SPLIT-LIST '(a b c d))
+	((A B) (C D))
+
+	CASE 2:
+	0[4] (SPLIT-LIST '(a b c d e))
+	((A B) (C D E))
+
+	CASE 3:
+	0[4] (SPLIT-LIST '(a b c d e f))
+	((A B C) (D E F))
+
+LIST2BTREE (LEAVES)
+	CASE 1:
+	0[4] (LIST2BTREE '(1))
+	1
+
+	CASE 2:
+	0[4] (LIST2BTREE '(1 2))
+	(1 2)
+
+	CASE 3:
+	0[4] (LIST2BTREE '(1 2 3))
+	(1 (2 3))
+
+	CASE 4:
+	0[4] (LIST2BTREE '(1 2 3 4)) 
+	((1 2) (3 4))
+
+	CASE 5:
+	0[4] (LIST2BTREE '(1 2 3 4 5 6 7))
+	((1 (2 3)) ((4 5) (6 7))
+
+	CASE 6:
+	0[4] (LIST2BTREE '(1 2 3 4 5 6 7 8))
+	(((1 2) (3 4)) ((5 6) (7 8)))
+
+BTREE2LIST (TREE)
+	CASE 1:
+	0[4] (BTREE2LIST 1)
+	(1)
+
+	CASE 2:
+	0[4] (BTREE2LIST '(1 2))
+	(1 2)
+
+	CASE 3:
+	0[4] (BTREE2LIST '(1 (2 3)))
+	(1 2 3)
+
+	CASE 4:
+	0[4] (BTREE2LIST '((1 2) (3 4)))
+	(1 2 3 4)
+
+	CASE 5:
+	0[4] (BTREE2LIST '((1 (2 3)) ((4 5) (6 7))))
+	(1 2 3 4 5 6 7)
+
+	CASE 6:
+	0[4] (BTREE2LIST '(((1 2) (3 4)) ((5 6) (7 8))))
+	(1 2 3 4 5 6 7 8)

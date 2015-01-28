@@ -1,0 +1,19 @@
+Sentences
+------------------------------------------------
+1) Connected is a binary and symmetric relation.
+2) An objext x is part of another object y iff everything x is connected, y is also connected to.
+3) Room BH3400 is part of Boelter Hall
+4) Room BH3400 is connected to itself.
+
+KB
+------------------------------------------------
+A1) For all x,y connected(x,y) -> connected(y,x)
+A2) For all x,y Part(x,y) <-> (For all z, connected(x,z) -> connected(y,z))
+A3) Part (BH3400, Boelter)
+A4) Connected(BH3400,BH3400)
+
+S1) For all x,y NOT connected(x,y) OR connected(y,x)
+S2) FORALL x,y ( part(x,y) => (FORALL z connected(x,z) => connected(y,z)) 
+OR (NOT part(x,y) OR NOT connected(x,y) OR connected(x,y)) )
+
+Probabilistic

@@ -1,0 +1,1 @@
+<p><font color="000000">&copy; <?php echo date("Y"); ?> Boss-ass bitches Prianna & RossDaBoss created this baby. All rights reserved.</font></p>

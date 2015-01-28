@@ -1,0 +1,88 @@
+CS 161 Discussion 1     10/10/2014
+
+Recommended LISP implementations:
+    GCL
+    CLSIP
+    AllegroCL (Windows)
+    SBCL
+    
+Subsequence function: return 't' if 2nd list is a subsequence of the 1st list.
+        Example behavior:
+            L1 := '(1 2 3 4)'
+            L2 := '(2 4)'
+            return 't'
+        
+            L1 := NULL
+            L2 := '(2 5)'
+            return 'nil'
+            
+    ( defun sub-seq? (L1 L2) 
+        ( cond ( (NULL L2) t) 
+               ( (NULL L1) f)
+               ( (equal (first L1) (first L2)) (sub-seq? (rest L1) (rest L2) ))
+               (t (sub-seq? (rest L1) L2)) ) )
+               
+Substitute function: take a list L and 2 elements, x & y, as params. Replace all
+occurrences of x in L with y.
+        Example behavior:
+            x := 'a
+            y := 'b
+            L := '(accab)
+            
+            return '(bccbb)
+    
+    ( defun subs (x y L)
+        ( cond ( (NULL L) nil)
+               ( (equal x (first L)) (cons y (subs x y (rest L))) )
+               ( t (cons (first L) (subs x y (rest L))) ) ) )
+               
+Sub-list function: Takes a list L, starting index i, and length l and returns
+sublist starting at i of length l.
+
+Tree-size function: Return height of tree L
+    ( defun tree-size(L) 
+        (cond ((atom L) 1)
+              ( t (+ 1 (tree-size (first L)) (tree-size (third L)) ))
+        )
+    )
+
+Tree-max:
+need to check if tree is a list or not. If tree is a list, compare max from left
+with max from right. return larger.
+
+TREE-ORDER, which takes one argument TREE, and returns an in-ordered list of the numbers appearing in ordered tree TREE.
+
+If TREE is null, return 0.
+If TREE is a single number, return the number.
+If TREE is a list, go through the list and append the first to rest
+
+SUB-LIST, that takes a list L and two non-negative integers START and LEN, and returns the sub-list of L starting at position START and having length LEN. Assume that the first element of L has position 0.
+
+Base case: L is empty or LEN is 0, return nil.
+Otherwise: Use first to access the first START elements of the list.
+Use cons + first to access the next LEN-1 elements of the list.
+Once we're at the starting position, begin iterating over LEN.
+
+Split-list takes a list L and returns a list of two lists, L1 and L2 (in order), such that L is the result of appending L1 and L2 and length of L2 minus length of L1 is 0 or 1.
+
+Use length to check the length of the list. Use SUB-LIST to split list.
+
+(defun LIST2BTREE ( LEAVES )
+  (cond ((NULL LEAVES) nil)
+        ((atom LEAVES) LEAVES)
+        ((equal (length LEAVES) 1) (first LEAVES))
+        ((equal (length LEAVES) 2) LEAVES)
+        ((equal (length LEAVES) 3) (append (first (SPLIT-LIST LEAVES)) (rest (SPLIT-LIST LEAVES))))
+        ((equal (length LEAVES) 4) (SPLIT-LIST LEAVES))
+        ( t (list (LIST2BTREE (first (SPLIT-LIST LEAVES))) (LIST2BTREE (second (SPLIT-LIST LEAVES)))))
+  )
+)
+
+(defun BTREE2LIST (TREE)
+  (cond ((NULL TREE) '())
+        ((atom TREE) (cons TREE '()))
+        (t (append (BTREE2LIST (first TREE)) (BTREE2LIST (second TREE))))))
+
+(cond (a (do-x))
+      (b (do-y))
+      (t (do-z)))

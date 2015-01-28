@@ -1,0 +1,153 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: helvetica;
+    font-weight: 100;
+}
+
+.pre {
+  background-color: #EEEEEE;
+  font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+  margin-bottom: 10px;
+  max-height: 600px;
+  overflow: auto;
+  padding: 5px;
+  width: auto;
+}
+
+.menu {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.wide-form {
+    width: 300px;
+}
+
+#sidebar {
+    position: absolute;
+	left:-150px;
+    background: #DF314D;
+    width: 150px;
+    height: 100%;
+    box-sizing: border-box;
+   -moz-box-sizing: border-box;
+}
+#sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#sidebar ul li {
+    margin: 0;
+}
+#sidebar ul li a {
+	background:#696969;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 100;
+    color: white;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #000000;
+}
+#sidebar ul li:hover a {
+    background: #000000;
+}
+.main-content {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    position: relative;
+}
+.main-content h2{
+    font-weight: 100;
+	font-size: 22px;
+}
+.main-content .content{
+box-sizing: border-box;
+padding-left: 60px;
+position: relative;
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+margin-bottom: 50px;
+line-height: 1.6em;
+}
+.main-content .content h1{
+    font-weight: 100;
+}
+
+.main-content .content h2{
+    font-weight: 100;
+	font-size: 22px;
+}
+
+.main-content .content p{
+    width: 100%;
+    line-height: 160%;
+}
+
+.menu-heading{
+	background:#000000;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 100;
+    color: white;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #000000;
+}
+
+#layout {
+    position: relative;
+    padding-left: 0;
+}
+    #layout.active {
+        position: relative;
+        left: 150px;
+    }
+        #layout.active #menu {
+            left: 150px;
+            width: 150px;
+        }
+
+        #layout.active .menu-link {
+            left: 150px;
+        }
+
+.header {
+     margin: 0;
+     color: #333;
+     text-align: center;
+     padding: 2.5em 2em 0;
+     border-bottom: 1px solid #696969;
+ }
+    .header h1 {
+        margin: 0.2em 0;
+        font-size: 3em;
+        font-weight: 300;
+    }
+     .header h2 {
+        font-weight: 300;
+        color: #ccc;
+        padding: 0;
+        margin-top: 0;
+    }
+
+.subhead {
+    margin: 50px 0 20px 0;
+    font-weight: 300;
+    color: #888;
+}
+
+@media {
+    #layout {
+        padding-left: 150px; 
+        left: 0;
+    }
+    #menu {
+        left: 150px;
+    }
+}

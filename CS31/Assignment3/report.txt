@@ -1,0 +1,89 @@
+Author: Ahsan, Prianna
+Date: July 19th, 2012
+Course: CS 31
+Section: Dis 1D
+TA: E. Kostem
+
+Source: cyclelength.cpp
+
+Obstacles encountered: As with assignment 2, I initially misunderstood the spec for this project (I am beginning to suspect that I need to work on my reading comprehension). I initially took the spec to mean that the program was supposed to count the number of numbers from an integer until equal to 1. However, I realized that made no sense in the context of outputting the maximum cycle length. After reviewing the spec, I changed my code appropriately and didn't encounter any further obstacles.
+
+Algorithm/program design: The program I wrote is quite simple, though perhaps inefficient. It goes something like this:
+
+Main algorithm:
+...
+prompt user for starting number
+while starting number is positive,
+repeatedly:
+	prompt user for ending number
+	repeatedly, while starting number < ending number:
+		count cycles to reach 1 via 3n+1 algorithm
+		increment starting integer
+	output max number of cycles
+	prompt user for starting number
+...
+
+3n+1 algorithm:
+...
+while number is not 1,
+	if number is even,
+		divide by 1
+	else
+		multiply by 3 and add 1
+	increment cycles
+return cycles
+...
+
+
+Testing: I tested the cases given in the spec and a few others (negative numbers, large numbers, etc...) but could not test the program from 1 to 1,000,000. I was also unable to test the program on numbers over 100,000.
+
+Priannas-MacBook-Pro:assignment3 Prianna$ ./cyclelength
+Start: 1
+End: 10
+Max: 20
+
+Start: 100
+End: 200
+Max: 125
+
+Start: 201
+End: 210
+Max: 89
+
+Start: 25
+End: 45
+Max: 112
+
+Start: 2
+End: 3
+Max: 2
+
+Start: 3
+End: 3
+Max: 0
+
+Start: 1
+End: 1
+Max: 0
+
+Start: 1 
+End: 2
+Max: 1
+
+Start: 1
+End: 1000
+Max: 179
+
+Start: 1
+End: 10000
+Max: 262
+
+Start: 1
+End: 100000
+Max: 351
+
+Start: 1
+End: 500000
+^C
+Priannas-MacBook-Pro:assignment3 Prianna$ ./cyclelengthStart: -4
+Priannas-MacBook-Pro:assignment3 Prianna$

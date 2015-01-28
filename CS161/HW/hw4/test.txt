@@ -1,0 +1,362 @@
+N = 1
+
+* (time (queens 1))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000002 seconds of total run time (0.000002 user, 0.000000 system)
+  100.00% CPU
+  2,001 processor cycles
+  0 bytes consed
+  
+(1)
+
+N = 2
+
+* (time (queens 2))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000001 seconds of total run time (0.000001 user, 0.000000 system)
+  100.00% CPU
+  1,947 processor cycles
+  0 bytes consed
+  
+NIL
+
+N = 3
+
+* (time (queens 3))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000002 seconds of total run time (0.000001 user, 0.000001 system)
+  100.00% CPU
+  1,932 processor cycles
+  0 bytes consed
+  
+NIL
+
+N = 4
+
+* (time (queens 4))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000022 seconds of total run time (0.000022 user, 0.000000 system)
+  100.00% CPU
+  48,318 processor cycles
+  0 bytes consed
+  
+(3 1 4 2)
+
+N = 5
+
+* (time (queens 5))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000034 seconds of total run time (0.000034 user, 0.000000 system)
+  100.00% CPU
+  78,141 processor cycles
+  32,768 bytes consed
+  
+(3 1 4 2 5)
+
+N = 6
+
+* (time (queens 6))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000121 seconds of total run time (0.000121 user, 0.000000 system)
+  100.00% CPU
+  275,870 processor cycles
+  32,752 bytes consed
+  
+(5 3 1 6 4 2)
+
+N = 7
+
+* (time (queens 7))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000096 seconds of total run time (0.000096 user, 0.000000 system)
+  100.00% CPU
+  218,981 processor cycles
+  65,520 bytes consed
+  
+(2 4 1 7 5 3 6)
+
+N = 8
+
+* (time (queens 8))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000367 seconds of total run time (0.000367 user, 0.000000 system)
+  100.00% CPU
+  821,327 processor cycles
+  65,536 bytes consed
+  
+(2 8 6 1 3 5 7 4)
+
+N = 9
+
+* (time (queens 9))
+
+Evaluation took:
+  0.000 seconds of real time
+  0.000242 seconds of total run time (0.000242 user, 0.000000 system)
+  100.00% CPU
+  554,425 processor cycles
+  98,288 bytes consed
+  
+(2 6 3 1 8 4 9 7 5)
+
+N = 10
+
+* (time (queens 10))
+
+Evaluation took:
+  0.001 seconds of real time
+  0.000865 seconds of total run time (0.000864 user, 0.000001 system)
+  100.00% CPU
+  1,985,800 processor cycles
+  294,880 bytes consed
+  
+(2 5 10 8 1 4 7 3 6 9)
+
+N = 11
+
+* (time (queens 11))
+
+Evaluation took:
+  0.001 seconds of real time
+  0.000389 seconds of total run time (0.000388 user, 0.000001 system)
+  0.00% CPU
+  891,871 processor cycles
+  131,056 bytes consed
+  
+(2 5 7 11 1 6 4 10 8 3 9)
+
+N = 12
+
+* (time (queens 12))
+
+Evaluation took:
+  0.001 seconds of real time
+  0.001108 seconds of total run time (0.001108 user, 0.000000 system)
+  100.00% CPU
+  2,545,922 processor cycles
+  262,128 bytes consed
+  
+(2 4 9 7 10 1 11 5 8 6 3 12)
+
+N = 13
+
+* (time (queens 13))
+
+Evaluation took:
+  0.001 seconds of real time
+  0.000986 seconds of total run time (0.000985 user, 0.000001 system)
+  100.00% CPU
+  2,262,405 processor cycles
+  262,112 bytes consed
+  
+(2 4 9 7 12 1 3 6 13 10 8 11 5)
+
+N = 14
+
+* (time (queens 14))
+
+Evaluation took:
+  0.005 seconds of real time
+  0.005441 seconds of total run time (0.005419 user, 0.000022 system)
+  100.00% CPU
+  12,662,115 processor cycles
+  1,277,840 bytes consed
+  
+(2 4 13 8 5 11 1 14 6 3 9 7 12 10)
+
+N = 15
+
+* (time (queens 15))
+
+Evaluation took:
+  0.023 seconds of real time
+  0.022906 seconds of total run time (0.022023 user, 0.000883 system)
+  100.00% CPU
+  52,680,728 processor cycles
+  5,144,224 bytes consed
+  
+(2 4 8 13 5 12 1 15 6 9 14 10 3 7 11)
+
+N = 16
+
+* (time (queens 16))
+
+Evaluation took:
+  0.023 seconds of real time
+  0.023049 seconds of total run time (0.022685 user, 0.000364 system)
+  100.00% CPU
+  54,423,783 processor cycles
+  4,062,832 bytes consed
+  
+(2 4 7 14 12 9 5 1 15 6 16 11 13 8 10 3)
+
+N = 17
+
+* (time (queens 17))
+
+Evaluation took:
+  0.003 seconds of real time
+  0.003248 seconds of total run time (0.003244 user, 0.000004 system)
+  100.00% CPU
+  7,522,193 processor cycles
+  557,024 bytes consed
+  
+(2 4 7 10 13 16 5 1 14 6 8 3 12 17 15 11 9)
+
+N = 18
+
+* (time (queens 18))
+
+Evaluation took:
+  0.044 seconds of real time
+  0.043459 seconds of total run time (0.043437 user, 0.000022 system)
+  97.73% CPU
+  100,348,570 processor cycles
+  7,961,856 bytes consed
+  
+(2 4 6 15 18 5 14 8 1 16 7 10 17 3 12 9 11 13)
+
+N = 19
+
+* (time (queens 19))
+
+Evaluation took:
+  0.034 seconds of real time
+  0.034854 seconds of total run time (0.033891 user, 0.000963 system)
+  102.94% CPU
+  80,182,888 processor cycles
+  5,209,504 bytes consed
+  
+(2 4 6 11 16 5 13 8 1 18 7 17 10 3 19 9 15 12 14)
+
+N = 20
+
+* (time (queens 20))
+
+Evaluation took:
+  0.023 seconds of real time
+  0.021479 seconds of total run time (0.021420 user, 0.000059 system)
+  91.30% CPU
+  53,919,808 processor cycles
+  2,326,416 bytes consed
+  
+(2 4 6 16 19 10 14 5 18 1 3 7 9 12 20 15 17 11 13 8)
+
+N = 25
+
+* (time (queens 25))
+
+Evaluation took:
+  4.018 seconds of real time
+  4.006649 seconds of total run time (3.977676 user, 0.028973 system)
+  [ Run times consist of 0.033 seconds GC time, and 3.974 seconds non-GC time. ]
+  99.73% CPU
+  9,241,583,814 processor cycles
+  521,649,664 bytes consed
+  
+(2 4 6 24 19 5 23 8 18 7 22 1 9 12 20 3 21 11 25 14 16 10 13 15 17)
+
+N = 30
+
+* (time (queens 30))
+
+Evaluation took:
+  0.048 seconds of real time
+  0.047546 seconds of total run time (0.047493 user, 0.000053 system)
+  100.00% CPU
+  109,363,718 processor cycles
+  7,994,912 bytes consed
+  
+(2 4 6 19 16 5 15 12 26 22 27 3 18 23 1 29 13 8 17 14 28 7 10 30 25 21 24 20 11
+ 9)
+
+N = 35
+
+* (time (queens 35))
+
+Evaluation took:
+  0.194 seconds of real time
+  0.193600 seconds of total run time (0.193045 user, 0.000555 system)
+  [ Run times consist of 0.004 seconds GC time, and 0.190 seconds non-GC time. ]
+  100.00% CPU
+  445,777,425 processor cycles
+  26,602,224 bytes consed
+  
+(2 4 6 13 18 5 19 8 20 17 3 22 31 29 34 24 1 23 33 16 10 26 9 14 12 7 15 11 35
+ 21 28 25 27 32 30)
+
+ N = 36
+
+ * (time (queens 36))
+
+Evaluation took:
+  1.852 seconds of real time
+  1.850156 seconds of total run time (1.826631 user, 0.023525 system)
+  [ Run times consist of 0.050 seconds GC time, and 1.801 seconds non-GC time. ]
+  99.89% CPU
+  4,260,254,104 processor cycles
+  227,025,728 bytes consed
+  
+(2 4 6 16 13 5 21 8 18 35 24 3 17 11 33 31 34 1 25 30 32 10 19 9 14 12 7 15 23
+ 28 36 22 26 29 27 20)
+
+ N = 37
+
+* (time (queens 37))
+
+Evaluation took:
+  0.398 seconds of real time
+  0.398306 seconds of total run time (0.397064 user, 0.001242 system)
+  [ Run times consist of 0.004 seconds GC time, and 0.395 seconds non-GC time. ]
+  100.00% CPU
+  916,887,220 processor cycles
+  48,559,344 bytes consed
+  
+(2 4 6 17 15 5 19 8 18 21 28 3 32 11 29 31 35 1 27 14 16 10 13 9 23 12 34 7 33
+ 36 24 37 25 30 22 20 26)
+
+ N = 38
+
+* (time (queens 38))
+
+Evaluation took:
+  0.324 seconds of real time
+  0.324108 seconds of total run time (0.320534 user, 0.003574 system)
+  [ Run times consist of 0.003 seconds GC time, and 0.322 seconds non-GC time. ]
+  100.00% CPU
+  745,489,556 processor cycles
+  43,161,408 bytes consed
+  
+(2 4 6 17 21 5 22 8 35 14 20 24 9 19 3 27 31 38 1 37 7 12 30 34 10 15 18 11 13
+ 36 23 29 26 28 33 16 32 25)
+
+ N = 39
+ 
+* (time (queens 39))
+
+Evaluation took:
+  1.518 seconds of real time
+  1.515767 seconds of total run time (1.511627 user, 0.004140 system)
+  [ Run times consist of 0.011 seconds GC time, and 1.505 seconds non-GC time. ]
+  99.87% CPU
+  3,492,412,173 processor cycles
+  177,464,592 bytes consed
+  
+(2 4 6 13 20 5 17 8 21 26 29 33 9 18 3 35 31 25 1 14 12 19 36 32 10 16 38 11 24
+ 7 15 37 39 27 22 34 23 30 28)

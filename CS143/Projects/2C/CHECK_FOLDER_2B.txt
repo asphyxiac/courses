@@ -1,0 +1,7 @@
+03/04/2014
+Implemented all functionality for BTreeIndex class and checked logic like a billion times. Fixed error codes and error reporting in BTLeafNode class. Need to fix a bunch of shit in BTNonLeafNode class, including logical errors, memory/pointer arithmetic errors, and error reporting (e.g. returned RC values). Need to test BTreeIndex and BTreeNode classes in concert to ensure that everything is working. 
+
+Will probably have to write some test functions that a. fill the tree with junk, b. assert that junk is where it should be and c. print out the tree.
+Argh. Testing this is going to suck.
+
+As the title says, check 2B/Prianna_In_Progress/Bruinbase for most recent source.

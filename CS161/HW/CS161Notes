@@ -1,0 +1,50 @@
+let length(list) = n
+	(butlast list k): removes last k elements, returning first n - k elements from list.
+	(nthcdr k list): removes first k elements from list, returning list beginning with element k (start counting at 0).
+			   		 returns last n - k elements from list.
+
+(setq s2 '((1 1 1 1 0) (1 0 1 0 1) (1 2 3 4 1)))
+r = 1, c = 3, v = 4
+
+recursive case 1: S is a state.
+r >= 0, c >= 0
+to extract row r, recurse on (append (butlast s2 (- (length s2) r)) (cons (set-square (first (nthcdr r s2)) 0 c) (rest (nthcdr r s2))))
+S is a list of atoms and r = 0:
+to extract elements before col c, use (butlast list (- (length list) c))
+to extract elements after col c, use (nthcdr (+ c 1) list)
+cons elements after col c with v: (cons v (nthcdr (+ c 1) list))
+append first elements: (append (butlast list (- (length list) c)) (cons v (nthcdr (+ c 1) list)))
+
+(defun set-square (S r c v)
+	(cond ((equal (get-square S r c) v) S)
+		  ((listp (first S)) (append (butlast S (- (length S) r)) (cons (set-square (first (nthcdr r S)) 0 c v) (rest (nthcdr r S)))))
+		  ((atom (first S)) (cond ((> c (- (length S) 1) ) S)
+		  					(t (append (butlast S (- (length S) c)) (cons v (nthcdr (+ c 1) S))))))))
+
+try-move:
+
+find the keeper position with (getkeeperposition S (length S))
+If r = 0, cannot move up.
+If r = (- (length S) 1), cannot move down.
+If c = (- (length S) 1), cannot move right.
+If c = 0, cannot move left.
+
+UP: 
+	r-1, c is a wall: nil
+	r-1, c is a box
+		r-2, c is non-empty: nil.
+		else, set-square r-2, c == (+ 2 (get-square S (- r 2) c)), set-square r-1, c to (+ 3 (get-square S (- r 1) c)) and set-square r, c to (- 3 (get-square S r c)).
+	else, set square r-1, c to (+ 3 (get-square S (- r 1) c)) and set-square r, c to (- 3 (get-square S r c)).
+
+DOWN: 
+	r+1, c is a wall: nil
+	r+1, c is a box
+		r+2, c is non-empty: nil.
+		else, set-square r+2, c == 2 (box), set-square r+1, c to 3 and set-square r, c to 0.
+	else, set-square r+1, c to 3 and set-square r, c to 0.
+
+LEFT: 
+	r, c-1 is a wall: nil
+
+(defun try-move (S D)
+	(cond ((equal D 'up) )))

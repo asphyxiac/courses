@@ -1,0 +1,27 @@
+Movie table: movie.del, Movie(id, title, year, rating, company)
+						Movie(int, varchar(100), int, varchar(10), varchar(50))
+
+Actor table: actor1.del, Actor(id, last, first, sex, dob, dod)
+			 actor2.del  Actor(int, varchar, varchar, varchar, date, date)
+			 actor3.del
+			 
+Director table: director.del, Director(id, last, first, dob, dod)
+
+MovieGenre table: moviegenre.del, MovieGenre(mid, genre)
+
+MovieDirector table: moviedirector.del, MovieDirector(mid, did)
+
+MovieActor table: movieactor1.del, MovieActor(mid, aid, role)
+				  movieactor2.del
+
+To create:
+
+Review table:
+MaxPersonID table:
+MaxMovieID: table:
+
+First: create the tables (file: create.sql) using specified schemas.
+Second: load the data (file: load.sql)
+
+To find all bacon movies: Actor table, Movie Actor table,
+first="Kevin", last="Bacon", actr.id=movActr.aid, 

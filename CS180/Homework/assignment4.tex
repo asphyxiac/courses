@@ -1,0 +1,245 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Structured General Purpose Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in 
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{Discussion enrolled: \hmwkClass\\Discussion Attended: \hmwkClass} % Top center header
+\rhead{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\cfoot{\hmwkTitle} % Bottom center footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+   
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment 4} % Assignment title
+\newcommand{\hmwkClass}{Section 1D} % Course/class
+\newcommand{\hmwkAuthorName}{Prianna \underline{Ahsan}} % Your name
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+Given a road with houses along it, n cell phone towers need to be placed at certain points along the road such that each house is within 4 miles (in range) of a cell phone tower. Say that a house is covered if it is within 4 miles of a cell phone tower. Produce an efficient algorithm that minimizes n, the number of cell phone towers needed to cover all houses.
+\begin{homeworkSection}{Solution}
+Let the road be represented as the x axis, and choose one end to be the origin. Place the first tower 4 miles past the house closest to the origin (at position $x_{1}$) on the road at position $x_{1}+4$. Find the next house that is not in range of the first tower (at position $x_{i} > x_{1}+8$), and place the second tower 4 miles past that house at $x_{i}+4$. Do this iteratively for each out of range house until the no such houses remain, taking $\mathcal{O}(m)$ time, where m is the number of houses that need to be covered.
+\end{homeworkSection}
+\begin{homeworkSection}{Proof}
+We can use a 'stay ahead' argument to show that the solution above is optimal: Suppose there exists some optimal solution that produces a set of cell phone towers S. Let G be the set of cell phone towers produced by the greedy solution. We can show by induction that $\|S\| = \|G\|$ for any optimal solution set S, and that the towers in G cover at least as many houses as the towers in S. Let n be the number of cell phone towers placed by a solution.\\
+\textbf{Base case (n = 1)}:\\
+G consists of a single tower that was placed past the first house encountered at $x_{1}$ at position $G_{1}$ = $x_{1}+4$, covering \emph{h} houses between $x_{1}$ and $x_{1}+8$. S consists of a single tower covering \emph{i} houses. We now examine the possible placement positions for $S_{1}$.\\
+\setlength\parindent{25pt}
+\indent \textbf{Case 1, $S_{1} < G_{1}$}:\\
+\indent $G_{1}$ covers \emph{h} houses between $x_{1}$ and $x_{1}+8 = G_{1}+4$, and $S_{1}$ covers \emph{i} houses between $x_{a} < x_{1}$
+\\
+\indent and $x_{a}+8 < x_{1}+8$. Thus, S covers at most \emph{h} houses, and G is an optimal solution.\\
+\indent \textbf{Case 2, $S_{1} > G_{1}$}:\\
+\indent In this case, S fails to cover the first house at $x_{1}$. \\
+\indent So S cannot be the optimal solution (a contradiction).\\
+So, for n = 1, G is an optimal solution, with $G_{1} \geq S_{1}$. Assume that G is optimal up to and including placement of the $n^{th}$ tower, and that $G_{n} \geq S_{n}$.\\
+\noindent \textbf{Case (n=n+1)}:\\
+\noindent G consists of n towers that cover \emph{h} houses between $x_{1} and G_{n}+4$, and S covers at most \emph{h} houses between $x_{a}$ and  $S_{n}+4$, with $S_{n} < G_{n}$. The $(n+1)^{th}$ tower in G is placed past the first out of range house encountered at $x_{n+1}$ so that $G_{n+1} > G_{n}+4$. We now examine the possible placement positions for $S_{n+1}$.\\
+\indent \textbf{Case 1, $S_{n+1} < G_{n+1}$}:\\
+\indent $G_{n+1}$ covers \emph{k} houses between $x_{n+1}$ and $x_{n+1}+8$, and $S_{n+1}$ covers \emph{i} houses between
+\\ \indent $x_{b} < x_{n+1}$ and $x_{b}+8 < x_{n+1}+8$. Thus, S covers at most \emph{k} houses, and G remains an optimal solution.\\
+\indent \textbf{Case 2, $S_{n+1} > G_{n+1}$}:\\
+\indent In this case, S fails to cover the house at $x_{n+1}$, and is not optimal.\\
+\noindent Thus, we see that for every tower in an optimal solution S, there is a tower in G that is farther along, so that towers in G always stay ahead of those in S. Since the greedy algorithm only places towers if it encounters an out of range house, the only way that $\|S\| < \|G\|$ for a set of n houses is if the towers in S cover fewer than n houses, which contradicts our initial assumption that S was an optimal solution set. Thus the greedy solution is an optimal solution.
+\end{homeworkSection}
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Custom section title
+The exercise describes a set of n jobs, where each job $J_{i}$ requires both preprocessing time, $p_{i}$ and finishing time, $f_{i}$. Jobs can only be preprocessed one at a time using a supercomputer, but all n jobs can be finished in parallel. A \emph{schedule} is an ordering of jobs for the supercomputer to preprocess and the \emph{completion time} of the schedule is the earliest time at which all jobs will have finished processing. The exercise asks for a polynomial time algorithm that, given n jobs, produces a schedule with minimal completion time.
+%--------------------------------------------
+\begin{homeworkSection}{Solution}
+This is similar to problem [KT] 4.6, where we were asked to do the same thing for triathlon times. Since the jobs can be finished in parallel, the algorithm must maximize overlap between $p_{i}$'s and $f_{i}$'s. The fastest way to do this is to sort each finishing time in non-increasing order and then pick the job with the longest finishing time to go first. If two jobs have the same finishing time, schedule the one with the shortest preprocessing time first. The final job in the schedule is the one with the shortest finishing time.
+\end{homeworkSection}
+\begin{homeworkSection}{Proof}
+\noindent Imagine that the solution above is not optimal. Then, there exists some other optimal solution in which the jobs are not scheduled in non-increasing order of finishing times. Suppose that in the optimal solution, some job k is scheduled before some other job k+1, with finishing time $f_{k} < f_{k+1}$.  Then, job k will leaves the supercomputer after $p_{k}$ seconds, and k+1 leaves the supercomputer after $p_{k}+p_{k+1}$ seconds have passed, taking $p_{k}+p_{k+1}+f_{k+1}$ seconds to complete. The total time taken for both jobs to complete is $p_{k}+p_{k+1}+f_{k+1}$ seconds. In the greedy solution, the order of k and k+1 is swapped, so that job k+1 is scheduled first, taking $p_{k+1}$ seconds to leave the supercomputer. Job k then leaves the supercomputer after $p_{k}+p_{k+1}$ seconds have passed, taking $p_{k+1}+p_{k}+f_{k}$ seconds to complete. Since job k+1 now completes earlier, the total completion time for both jobs is less than $p_{k+1}+p_{k}+f_{k+1}$ seconds. Also, notice that swapping the order of k and k+1 doesn't change the total preprocessing time needed by k and k+1, thus such a swap doesn't change the time at which adjacent jobs enter the supercomputer for preprocessing. Thus, the swap results in a lower completion time for jobs k and k+1 and doesn't increase completion time for any adjacent jobs, illustrating that the greedy solution is an optimal solution.
+\end{homeworkSection}
+\begin{homeworkSection}{Time Complexity}
+\noindent Sorting the n jobs by finishing time takes $ \mathcal{O} \left(n log \left( n \right) \right) $ time. 
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}% Roman numerals
+The exercise proposes a scenario in which we must send n video streams over a communication link. The $i^{th}$ stream consists of $b_{i}$ bits that take $t_{i}$ seconds to transmit, so that $r_{i} = \frac{b_{i}}{t_{i}}$ is the rate at which the $i^{th}$ stream transmits. We must decide on the order of transmission of the streams subject to the following constraint: $b_{i} \leq r\sum_{k=0}^{i} t_k$, where r is the constant bandwidth available (r is the transmission rate of the communication link). In other words, for each $t \in \mathbb{N}$, the total number of bits sent over the time interval from 0 to t cannot exceed rt. If a proposed schedule satisfies the above constraint, we say that it is \emph{valid}. The problem asks us to verify or falsify a claim and then produce an algorithm that, given a set of n streams as defined above, \emph{determines} whether or not a valid schedule exists in polynomial time. The problem \emph{does not} ask for an algorithm that produces a valid schedule (yay).
+
+\begin{homeworkSection}{Claim}
+\noindent There exists a valid schedule if and only if each stream \emph{i} satisfies $b_{i} \leq rt_{i}$.
+\\
+\\
+The constraint, as defined, states that each $b_{i} \leq r\sum_{k=0}^{i} t_k$, not that each $b_{i} \leq rt_{i}$. It's possible for $rt_{i} < b_{i} \leq r\sum_{k=0}^{i} t_k$ such that the constraint is still satisfied. For example, let $b_{i} = 100, t_{i} = 1, r = 50, \sum_{k=0}^{i} t_k = 5$. Then, $50 < 100 < 250$. Thus, the forward direction of this claim is clearly false, and the claim is false. 
+
+\end{homeworkSection}
+
+\begin{homeworkSection}{Algorithm}
+\noindent If the total number of bits we desire to transmit over a given time interval exceeds the total bandwidth available to us, then no permutation of streams will produce a valid schedule. This is because, eventually, some stream \emph{i} will try to send $b_{i}$ bits, such that $\sum_{k=0}^{i} b_i > r\sum_{k=0}^{i} t_k$ (by the pigeon-hole principle), at which point the schedule fails to be valid. Since the upper bound on the total number of bits sent by the n streams is $\sum_{i=0}^{n} b_i \leq r\sum_{i=0}^{n} t_i$, all our algorithm has to do is check whether the constraint is satisfied for all n streams. That is, it must sum the bit lengths of all n streams and check whether or not the sum is less than or equal to the bandwidth, r, times the time needed to send all n streams. This can be done in linear time with respect to n.
+
+\end{homeworkSection}% Question
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 4
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+The exercise asks us to partition a set of n sensitive processes, where each process has a start time $s_{k}$ and a finishing time $f_{k}$, using as few partitions as possible. We put a process i into the same partition as some other process j if their running times overlap, i.e., if $s_i < f_j$ or $s_j > f_i$. All processes in the $k^{th}$ partition must be equivalent with respect to overlap, that is, each process must intersect with every other process in the partition at some point in time, $t_k$. We want to insert a status\_check at each point $t_k$, so that status\_check is invoked at least once during each sensitive process.
+
+\begin{homeworkSection}{Solution} % Section within problem
+The given input is a set of \emph{n} start times and \emph{n} finish times for \emph{n} sensitive processes. Clearly, the algorithm's first step is to sort the processes in non-decreasing order of finish and start times (in other words, establish a timeline). If every start time precedes every finish time, then we're done, and only one invocation of status\_check between the final start time and the first finish time is necessary. Otherwise, the algorithm inserts a status\_check in front of the first finish time, $f_i$, and moves all \emph{j} processes with start times $s_{j}$ such that $s_j < f_i$ to partition \emph{i}. The algorithm creates \emph{k} partitions and inserts \emph{k} status\_checks in this manner, iterating through the list of processes until no unpartitioned processes remain. When the algorithm finishes running, it returns the set of \emph{k} inserted status\_checks. The algorithm sorts the list of \emph{n} processes in $\mathcal{O} \left( n log n \right)$ time and partitions/iterates through the list in $\mathcal{O}\left(n\right)$ time. Thus, the algorithm runs in $\mathcal{O}\left(n log n\right)$ time.
+\end{homeworkSection}
+%--------------------------------------------
+
+\begin{homeworkSection}{Proof}
+Suppose that the greedy algorithm does not return a minimal set of status\_checks, and that there is some other optimal solution that returns a smaller set of status\_checks. Let A be the set returned by the algorithm above and B be the set returned by the optimal algorithm. We can show by using a 'stay-ahead' argument that the cardinality of A is never greater than that of B. Let n be the number of status\_checks in A.\\
+\textbf{Base Case (n=1)}:\\
+Since the greedy algorithm always places its first status\_check, $a_1$ at the last instant possible, the first status\_check in B, $b_1$, must precede $a_1$, thus B has at least as many status\_checks as A. Now, inductively assume that B has at least as many status\_checks as A for n = 1, 2, ..., n-1.\\
+\textbf{Case (n=n)}:\\
+The greedy algorithm only inserts a status\_check if unpartitioned processes remain in the list. Thus, there is at least one sensitive process, $p_{n}$ that needs a status\_check invoked during its runtime. Since the greedy algorithm places $a_n$ right before the finish time of $p_n$, B is forced to place a status\_check before or at $a_n$ in order to fulfill the status\_check requirement. Now, B also contains \emph{n} status\_checks, and the proof of optimality is complete.
+\end{homeworkSection}
+
+%--------------------------------------------
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem} % Roman numerals
+
+\begin{homeworkSection}{Description} % Section within problem
+Consider a circularly sorted list $X = {x_{1} ... x{n}}$ such that $x_{j} < x_{n} < x_{1} ... < x_{n-1}$ for some minimal value $x_{j}$. Design an algorithm with efficient time complexity that finds the value of j. Describe your algorithm by providing pseudo-code for it and analyze the time complexity of your algorithm.\end{homeworkSection}
+
+
+\begin{homeworkSection}{Solution} % Section within problem	
+The minimum element j is the element at which $x_{n} < ... < x_{j-1} > x_{j} < x_{j+1} ... x_{n-1}$. The solution consists of performing a modified binary search through the list: the algorithm checks the endpoints of each sub-list to determined which half to search, until the minimum element is found:\\
+\\
+\problemAnswer{ % Answer
+\setlength\parindent{25pt}
+\noindent If X has only one element, return $x_{1}$.\\
+\noindent If X has only two elements, return min($x_1, x_2$).\\
+\noindent Find the midpoint of X, say $x_{mid}$.\\
+\noindent If the $x_{1} < x_{mid}$, then the left half is sorted.\\
+\indent If $x_{k} < x_{n}$, then the right half is also sorted.\\
+\indent \indent Return min(right minimum, left minimum).\\
+\indent Else, find right minimum by performing a recursive call with $X = (x_{mid} ... x_n)$.\\
+\indent \indent Return min(right minimum, left minimum).\\
+\noindent Else, find left minimum by performing a recursive call with $X = (x_1 ... x_{mid})$.\\
+\noindent Return min(right minimum, left minimum).\\
+}
+\end{homeworkSection}
+
+\begin{homeworkSection}{Correctness and Time Complexity} % Section within problem
+Since either the left half or the right half of the list must be sorted, we can eliminate half of the list each time we recursively call the algorithm. Thus, a binary search through the circularly sorted list takes $\mathcal{O}(log n)$ time.
+\end{homeworkSection}
+
+\end{homeworkProblem}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+\end{document}

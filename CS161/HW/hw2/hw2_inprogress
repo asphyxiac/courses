@@ -1,0 +1,52 @@
+Homework 2
+
+1. Write a single pure LISP function, called DFS, that performs a depth-first search of a tree.  The function should take a single argument that is the list representation of the tree, and return a single, top-level list of the terminal nodes in the order they would be visited by a left-to-right depth-first search.  For example, (dfs '((A (B)) C (D))) would return (A B C D). Do not use any auxiliary functions.
+
+The search trees will be represented as lists in which a leaf node is represented by an atom, and a non-leaf node is represented by a list of its child nodes. 
+
+args: 
+	TREE: list representation of a search tree.
+
+base case: TREE is NULL.
+				Return empty list.
+		   TREE is an atom.
+				Return (list TREE).
+recursive: TREE is a list.
+				Return append (DFS((first tree)) DFS((rest TREE)))
+
+(defun DFS (TREE)
+	(cond ((null TREE) '()) 
+		  ((atom TREE) (list TREE))
+		  ((listp TREE) (append (DFS( first TREE )) (DFS( rest TREE ))))))
+
+Test cases: 
+(dfs '((A (B)) C (D))) returns (A B C D)
+(dfs '(A (B C) (D) (E (F G)))) returns (A B C D E F G)
+(dfs '((W X) (Y Z))) returns (W X Y Z)
+(dfs '((A (B C) (D E)) F G (H I)))
+
+
+
+Write a set of pure LISP functions that implement depth-first iterative-deepening.  Your top-level function, called DFID, should take two arguments, the list representation of the tree, and an integer representing the maximum depth of the tree, and return a single top-level list of the terminal nodes in the order that they would be visited by a left-to-right depth-first iterative-deepening search.  Note that those nodes that are visited in multiple iterations will appear multiple times in the output list.  For example, (dfid '((A (B)) C (D)) 3) would return (C A C D A B C D).
+
+Base case: depth = 0 -> return '()
+Recursive case: depth > 0
+	Case 1: First element is a list, recurse on first element at depth D-1 and rest of tree at depth D.
+	Case 2: First element is an atom, append the atomic element and recurse on rest of tree at depth D.
+
+(defun DFID (TREE D)
+	(cond ((<= D 0) '())
+		  ((> D 0) (append (DFID TREE (- D 1) )(LDFS TREE D)))
+	))
+
+(defun LDFS( TREE D ) 
+	(cond	((null TREE) '())
+			((<= D 0) '())
+			((> D 0) (cond ((listp (first TREE)) (append (LDFS (first TREE) (- D 1)) (LDFS (rest TREE) D)))
+						   ((atom (first TREE)) (append (list (first TREE)) (LDFS (rest TREE) D))))
+	)))
+
+(ldfs '(A (B C) D (E (F G))) 2)
+(ldfs '((A (B)) C (D)) 3)
+
+

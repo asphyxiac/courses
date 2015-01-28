@@ -1,0 +1,55 @@
+Changelog - 01/26/2013
+Author: Prianna Ahsan
+
+==================================================================
+query.php: line 65, changed if-else statement to ternary operator
+to clean up the script. 
+
+if ($attr[$attrCount] != NULL)
+	echo "$attr[$attrCount]";
+else
+	echo 'N/A';
+echo '</td>';
+
+WAS CHANGED TO:
+
+$attribute = $attr[$attrCount] ? $attr[$attrCount] : 'N/A';
+echo "$attribute";
+echo '</td>';
+
+==================================================================
+query.sql: Changed name to queries.sql to match spec. Adding test
+queries to the bottom as they come.
+==================================================================
+
+I’ve only made (or had to make) minor changes thus far. What did
+you mean by practically no error-checking? 
+
+- Prianna
+
+
+
+Hey P, 
+Still working on the last part. I've implemented some constraints that I thought were obvious
+but, of course, if you can think of anything I missed - go at it.
+
+I think the query.php is working fine now, had some interesting times with making it display in
+a table and center the font. Turns out that was easy but it was driving me crazy because of
+silly little mistakes.
+
+I'll keep ya posted on progress.
+
+P.S. I'm doing practically no error checking in create.sql, so remind me to look into it!
+
+====================================================
+Update 1/26/14 1:30PM
+
+I think I finished the thing, it's probably not optimal or sexy but we can always clean it up later. 
+I couldn't really think of any original ways to show why shit fails in violate.sql, aside from directly
+adding/removing incorrect things.
+
+Still have to do some error checking, even though I just saw in the project description we can assume, for
+this project only, that user input is not bollocks.
+
+Ya, that's it, methinks. Gonna start working on 151B and Astro, got midterms on Wednesday and Thursday.
+Hope you're feeling better today! Load up on more tea. NOW, I say!

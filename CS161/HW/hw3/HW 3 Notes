@@ -1,0 +1,361 @@
+; HW 3 Notes:
+
+; GOAL-TEST: Takes a state as the argument and returns true (t) if and only if the state is a goal state of the game. 
+; Goal state will have no 2s and should have at least one 5 (but we don't need to check this).
+; Parse state lists to check for any 2s. If any 2s are found, return false.
+; base case: null S, return true.
+; recursive cases: if first S has any 2's, return false.
+; 				   else, check rest S for 2's.
+(defun goal-test (S)
+	(cond ((equal S '()) t)
+		  ((> (count 2 (first S)) 0) nil)
+		  (t (goal-test (rest S)))))
+
+
+; NEXT-STATES:
+; 	GET-SQUARE
+; 	Write a function called get-square that takes in a state S, a row number r, and a column number c. It should return the integer content of state S at square (r,c). If the square is outside the scope of the problem, return the value of a wall.
+; 	Base cases: 
+; 			   first S == null, return 1
+; 	Recursive cases:
+; 			   		- Can also use nthcdr to retrieve first element of cth cdr of S.
+; 			   r > 0: recurse on (first (nthcdr r S)) 0 c
+; 			   r = 0, c> 0: recurse on (first (nthcdr c S))
+;			   r = 0, c = 0: Check S, if S is an atom, make sure it's not nil. If S is a list, remove 0, 0 element and recurse.
+
+	(defun get-square( S r c )
+		(cond ((equal S '()) 1)
+			  ((and (equal r 0) (equal c 0)) (cond ((atom S) 
+			  								 	   (cond ((equal S nil) 1)
+			  									   		 (t S)))
+			 									   ((listp S) (get-square (first (first S)) 0 0))))
+			  (t (get-square (first (nthcdr c (first (nthcdr r S)))) 0 0))))
+
+; 	SET-SQUARE
+; 	Write a function called set-square that takes in a state S, a row number r, a column number c, and a square content v (integer). 
+; 	This function should return a new state S’ that is obtained by setting the square (r,c) to value v. 
+; 	This function should not modify the input state.
+	
+	(defun set-square (S r c v)
+	(cond ((listp (first S))(cond ((equal (get-square S r c) v) S)
+								  (( > r (- (length S) 1)) S)
+		  					 	  (t (append (butlast S (- (length S) r)) 
+		  					 	  	 (cons (set-square (first (nthcdr r S)) 0 c v) (rest (nthcdr r S)))))))
+		  ((atom (first S)) (cond ((> c (- (length S) 1)) S)
+		  						  (t (append (butlast S (- (length S) c)) 
+		  						  	 (cons v (nthcdr (+ c 1) S))))))))
+
+; TRY-MOVE
+; Write a function try-move that takes in a state S and a move direction D. 
+; This function should return the state that is the result of moving the keeper in state S in direction D.
+; NIL should be returned if the move is invalid (e.g. there is a wall in that direction). 
+; How you represent a move direction is up to you. Remember to update the content of every square to the right value. 
+; Refer to Table 1 for the values of different types of square. You will probably need several small helper functions to make your job easier. 
+; In any case, the high-level plan is that your next-states function can call try-move in each of four directions from the current position of 
+; the keeper (some of them will return NIL) and collect all returned values into a list. Helper functions are provided for identifying the keeper 
+; square and for removing NILs from a list. The function try-move has to check whether the move is legal. If it is, it will need to 
+; update some squares of the current state to reflect the changes. Use set-square to help you do this. 
+; According to this strategy, at most three squares need to be updated for any single move (make sure you agree).
+
+; find the keeper position with (getkeeperposition S (length S))
+; If r = 0, cannot move up.
+; If r = (- (length S) 1), cannot move down.
+; If c = (- (length S) 1), cannot move right.
+; If c = 0, cannot move left.
+
+; UP: 
+; 	r-1, c is a wall: nil
+; 	r-1, c is a box
+; 		r-2, c is non-empty: nil.
+; 		else, set-square r-2, c == (+ 2 (get-square S (- r 2) c)), set-square r-1, c to (+ 3 (get-square S (- r 1) c)) and set-square r, c to (- 3 (get-square S r c)).
+; 	else, set square r-1, c to (+ 3 (get-square S (- r 1) c)) and set-square r, c to (- 3 (get-square S r c)).
+
+; DOWN: 
+; 	r+1, c is a wall: nil
+; 	r+1, c is a box
+; 		r+2, c is non-empty: nil.
+; 		else, set-square r+2, c == 2 (box), set-square r+1, c to 3 and set-square r, c to 0.
+; 	else, set-square r+1, c to 3 and set-square r, c to 0.
+
+; LEFT: 
+; 	r, c-1 is a wall: nil
+
+(defun push-up-helper (S r c)
+	(let* ( (2up (get-square S (- r 2) c))
+			(1up (get-square S (- r 1) c))
+			(cur (get-square S r c))
+			(S1 (if (equal 2up 4) ; If the square two boxes up is a goal,
+					(set-square S (- r 2) c (+ 1 2up)) ; Change it to be 5
+					(set-square S (- r 2) c (+ 2 2up)) ; Else, set it to 2.
+				))
+			(S2 (if (equal 1up 2)
+					(set-square S1 (- r 1) c 3)
+					(set-square S1 (- r 1) c 6)
+					))
+			(S3 (if (equal cur 6)
+					(set-square S2 r c (- cur 3))
+					(set-square S2 r c (- cur 2))
+					))
+			) S3 )
+	)
+
+(defun up-helper (S r c)
+	(let* ( (1up (get-square S (- r 1) c))
+			(cur (get-square S r c))
+			(S1 (if (equal 1up 4)
+					(set-square S (- r 1) c (+ 1up 2))
+					(set-square S (- r 1) c (+ 1up 3))))
+			(S2 (if (equal cur 6)
+					(set-square S1 r c (- cur 2))
+					(set-square S1 r c (- cur 3))))
+		  ) S2 )
+	)
+
+(defun push-dn-helper (S r c)
+	(let* ( (2dn (get-square S (+ r 2) c))
+			(1dn (get-square S (+ r 1) c))
+			(cur (get-square S r c))
+			(S1 (if (equal 2dn 4) ; If the square two boxes up is a goal,
+					(set-square S (+ r 2) c (+ 1 2dn)) ; Change it to be 5
+					(set-square S (+ r 2) c (+ 2 2dn)) ; Else, set it to 2.
+				))
+			(S2 (if (equal 1dn 2)
+					(set-square S1 (+ r 1) c 3)
+					(set-square S1 (+ r 1) c 6)
+					))
+			(S3 (if (equal cur 6)
+					(set-square S2 r c (- cur 3))
+					(set-square S2 r c (- cur 2))
+					))
+			) S3 )
+	)
+
+(defun dn-helper (S r c)
+	(let* ( (1dn (get-square S (+ r 1) c))
+			(cur (get-square S r c))
+			(S1 (if (equal 1dn 4)
+					(set-square S (+ r 1) c (+ 1dn 2))
+					(set-square S (+ r 1) c (+ 1dn 3))))
+			(S2 (if (equal cur 6)
+					(set-square S1 r c (- cur 2))
+					(set-square S1 r c (- cur 3))))
+		  ) S2 )
+	)
+
+(defun push-rt-helper (S r c)
+	(let* ( (2rt (get-square S r (+ c 2)))
+			(1rt (get-square S r (+ c 1)))
+			(cur (get-square S r c))
+			(S1 (if (equal 2rt 4) ; If the square two boxes up is a goal,
+					(set-square S r (+ c 2) (+ 1 2rt)) ; Change it to be 5
+					(set-square S r (+ c 2) (+ 2 2rt)) ; Else, set it to 2.
+				))
+			(S2 (if (equal 1rt 2)
+					(set-square S1 r (+ c 1) 3)
+					(set-square S1 r (+ c 1) 6)
+					))
+			(S3 (if (equal cur 6)
+					(set-square S2 r c (- cur 3))
+					(set-square S2 r c (- cur 2))
+					))
+			) S3 )
+	)
+
+(defun rt-helper (S r c)
+	(let* ( (1rt (get-square S r (+ c 1)))
+			(cur (get-square S r c))
+			(S1 (if (equal 1rt 4)
+					(set-square S r (+ c 1) (+ 1rt 2))
+					(set-square S r (+ c 1) (+ 1rt 3))))
+			(S2 (if (equal cur 6)
+					(set-square S1 r c (- cur 2))
+					(set-square S1 r c (- cur 3))))
+		  ) S2 )
+	)
+
+(defun push-lt-helper (S r c)
+	(let* ( (2lt (get-square S r (- c 2)))
+			(1lt (get-square S r (- c 1)))
+			(cur (get-square S r c))
+			(S1 (if (equal 2lt 4) ; If the square two boxes up is a goal,
+					(set-square S r (- c 2) (+ 1 2lt)) ; Change it to be 5
+					(set-square S r (- c 2) (+ 2 2lt)) ; Else, set it to 2.
+				))
+			(S2 (if (equal 1lt 2)
+					(set-square S1 r (- c 1) 3)
+					(set-square S1 r (- c 1) 6)
+					))
+			(S3 (if (equal cur 6)
+					(set-square S2 r c (- cur 3))
+					(set-square S2 r c (- cur 2))
+					))
+			) S3 )
+	)
+
+(defun lt-helper (S r c)
+	(let* ( (1lt (get-square S r (- c 1)))
+			(cur (get-square S r c))
+			(S1 (if (equal 1lt 4)
+					(set-square S r (- c 1) (+ 1lt 2))
+					(set-square S r (- c 1) (+ 1lt 3))))
+			(S2 (if (equal cur 6)
+					(set-square S1 r c (- cur 2))
+					(set-square S1 r c (- cur 3))))
+		  ) S2 )
+	)
+
+
+(defun try-move (S D)
+	(let ( (c (first (getkeeperposition S 0)))
+		   (r (second (getkeeperposition S 0))) )
+		(cond ((equal D 'up) (cond ((equal (get-square S (- r 1) c) 1) nil)
+								   ((or (equal (get-square S (- r 1) c) 2) (equal (get-square S (- r 1) c) 5)) ; If the sq above is a 2 or 5
+									   	(cond ((or (equal (get-square S (- r 2) c) 0) 
+									   			   (equal (get-square S (- r 2) c) 4)) 
+									   			   (push-up-helper S r c)) ; If the sq above that is blank or goal
+									   		  (t (nil))))
+								   (t (up-helper S r c))))
+				((equal D 'dn) (cond ((equal (get-square S (- r 1) c) 1) nil)
+								   	 ((or (equal (get-square S (- r 1) c) 2) (equal (get-square S (- r 1) c) 5))
+									      (cond ((or (equal (get-square S (- r 2) c) 0) 
+									   			     (equal (get-square S (- r 2) c) 4)) 
+									   			     (push-dn-helper S r c))
+									   		  	(t (nil))))
+								   	 (t (dn-helper S r c))))
+			  	((equal D 'lt) (cond ((equal (get-square S r (- c 1)) 1) nil)
+								   	 ((or (equal (get-square S r (- c 1)) 2) (equal (get-square S r (- c 1)) 5))
+								   		  (cond ((or (equal (get-square S r (- c 2)) 0) 
+									   		  		 (equal (get-square S r (- c 2)) 4)) 
+									   				 (push-lt-helper S r c))
+									   		 	(t nil)))
+									 (t (lt-helper S r c))))
+			  	((equal D 'rt) (cond ((equal (get-square S r (+ c 1)) 1) nil)
+								   	 ((or (equal (get-square S r (+ c 1)) 2) (equal (get-square S r (+ c 1)) 5))
+								   		  (cond ((or (equal (get-square S r (+ c 2)) 0) 
+									   		  		 (equal (get-square S r (+ c 2)) 4)) 
+									   				 (push-rt-helper S r c))
+									   		 	(t nil)))
+								   	 (t (rt-helper S r c)))))))
+
+; EXERCISE: Modify this function to compute the 
+; number of misplaced boxes in s.
+; H1: A heuristic that takes one argument, a state
+; s, and returns the number of misplaced boxes in s. 
+; H1 checks the count of 2's (boxes not on goals) in 
+; each sublist by using count on (first s) and then
+; recursing on (rest s).
+; H1 is an admissible heuristic, because every misplaced
+; box will require at least one move to reach a goal
+; square.
+(defun h1 (s)
+	(cond ((null S) 0)
+		  (t (+ (count 2 (first s)) (h1 (rest S)))))
+  )
+; H2: A heuristic function that takes in one argument,
+; a state s, and returns the summed vertical + horizontal
+; distances of boxes from goals. Since there can be more 
+; goals than boxes, H2 calculates the MIN distance of a 
+; box from any empty goal square.
+; Need to find box, and then find goal. First parse state
+; for box, then parse state for nearest goal. Replace box
+; with blank after min goal distance computed.
+; Repeat until end of list or no more boxes.
+(defun h2 (s)
+	(cond ((null s) 0)
+		  ((equal (count 2 (first s)) 0) (h2 (rest s))); If no boxes in first row, check rest.
+		  (t (let* ((pos (getBoxPos s 0)); If a box is found, 
+		  		    (r (second pos)); get the position of the box,
+		  		    (c (first pos))
+		  		    (smod (set-square s r c 0)); modify s so that box = 0 before recursing.
+		  		    )
+		  		(+ (minDistToGoal s r c) (h2 smod)); add distance computed by minDistToGoal to total.
+		  	 )
+		  )
+	)
+)
+		  		  
+(defun getBoxCol (r col)
+  (cond ((null r) nil)
+	(t (if (or (isBox (car r)) (isBoxStar (car r)))
+	       col
+	     (getBoxCol (cdr r) (+ col 1))
+	     );end if
+	   );end t
+	);end cond
+  )
+
+(defun getBoxPos(s row)
+  (cond ((null s) nil)
+	(t (let ((x (getBoxCol (car s) 0)))
+	     (if x
+		 ;keeper is in this row
+		 (list x row)
+		 ;otherwise move on
+		 (getBoxPos (cdr s) (+ row 1))
+		 );end if
+	       );end let
+	 );end t
+	);end cond
+  );end defun
+
+; Computes distance from object at position pos to
+; nearest goal square.
+(defun minDistToGoal(s r c)
+	(cond ((null pos) 0)
+		  ((null s) 0)
+		  ((and (equal (count 4 (first s)) 0) ; if no goals
+		  		(equal (count 6 (first s)) 0)); or no keeper+goals
+		  		(minDistToGoal (rest s) r c)) ; look at the next list
+		  (t (let* ((gpos (getGoalPos s 0)); If a goal is found, 
+		  		    (gr (second gpos)); get the position of the goal,
+		  		    (gc (first gpos))
+		  		    (smod (set-square s gr gc 0)); modify s so that goal = 0 before recursing.
+		  		    (min1 (calcDist r gr c gc))
+		  		    (min2 (minDistToGoal smod r c)); look for a shorter distance
+		  		    )
+		  		(if (<= min1 min2)
+		  			(min1)
+		  			(min2)
+		  		)
+		  	 )
+		  )
+		)
+	)
+
+(defun calcDist (r1 r2 c1 c2)
+	(let ((vdist (if (< (- r2 r1) 0) 
+					 (* -1 (- r2 r1))
+					 (- r2 r1)))
+		  (hdist (if (< (- c2 c1) 0) 
+					 (* -1 (- c2 c1))
+					 (- c2 c1)))
+		  )
+		(+ hdist vdist)
+		)
+	)
+
+		  		  
+(defun getGoalCol (r col)
+  (cond ((null r) nil)
+	(t (if (or (isStar (car r)) (isKeeperStar (car r)))
+	       col
+	     (getGoalCol (cdr r) (+ col 1))
+	     );end if
+	   );end t
+	);end cond
+  )
+
+(defun getGoalPos(s row)
+  (cond ((null s) nil)
+	(t (let ((x (getGoalCol (car s) 0)))
+	     (if x
+		 ;keeper is in this row
+		 (list x row)
+		 ;otherwise move on
+		 (getGoalPos (cdr s) (+ row 1))
+		 );end if
+	       );end let
+	 );end t
+	);end cond
+  );end defun
+
